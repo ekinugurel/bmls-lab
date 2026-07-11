@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMLS Lab — University of Houston</title>
+  <meta name="ext-resource-dependency" content="uploads/IMG_3620.jpeg" data-resource-id="profilePhoto"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    a { text-decoration: none; color: inherit; cursor: pointer; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .fu  { animation: fadeUp 0.65s ease both; }
+    .fu1 { animation: fadeUp 0.65s 0.10s ease both; }
+    .fu2 { animation: fadeUp 0.65s 0.20s ease both; }
+    .fu3 { animation: fadeUp 0.65s 0.32s ease both; }
+    .fu4 { animation: fadeUp 0.65s 0.44s ease both; }
+    .fi  { animation: fadeIn 0.8s 0.3s ease both; }
+
+    /* ── Tweaks panel ── */
+    .tweak-panel {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: #fff; border: 1px solid #e2e2e2; border-radius: 12px;
+      padding: 20px; width: 264px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+    }
+    .tweak-panel h4 {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; color: #888; margin-bottom: 12px;
+    }
+    .tweak-btn {
+      display: block; width: 100%; padding: 9px 12px; margin-bottom: 6px;
+      border-radius: 7px; border: 1.5px solid #e2e2e2;
+      background: transparent; cursor: pointer; text-align: left;
+      transition: all 0.15s; color: #444;
+    }
+    .tweak-btn:hover  { border-color: #C8102E; color: #C8102E; }
+    .tweak-btn.active { border-color: #C8102E; background: #C8102E; color: #fff; }
+    .tweak-name  { font-size: 12px; font-weight: 600; }
+    .tweak-desc  { font-size: 10.5px; opacity: 0.72; margin-top: 2px; }
+  </style>
+  <template id="__bundler_thumbnail" data-bg-color="#FAFAF8">
+    <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="80" fill="#FAFAF8"/>
+      <line x1="24" y1="16" x2="16" y2="24" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="24" y1="16" x2="32" y2="24" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="16" y1="24" x2="24" y2="32" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="32" y1="24" x2="24" y2="32" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="16" y1="24" x2="32" y2="24" stroke="#C8102E" stroke-width="0.8" stroke-linecap="round" opacity="0.3"/>
+      <circle cx="24" cy="16" r="2.2" fill="#C8102E"/>
+      <circle cx="16" cy="24" r="1.7" fill="#C8102E" opacity="0.55"/>
+      <circle cx="32" cy="24" r="1.7" fill="#C8102E" opacity="0.55"/>
+      <circle cx="24" cy="32" r="2.2" fill="#C8102E"/>
+      <rect x="42" y="20" width="64" height="4" rx="2" fill="#1A1712" opacity="0.15"/>
+      <rect x="42" y="28" width="44" height="3" rx="1.5" fill="#1A1712" opacity="0.08"/>
+      <rect x="14" y="44" width="92" height="2" rx="1" fill="#C8102E" opacity="0.18"/>
+      <rect x="14" y="50" width="28" height="16" rx="2" fill="#1A1712" opacity="0.06"/>
+      <rect x="46" y="50" width="28" height="16" rx="2" fill="#1A1712" opacity="0.06"/>
+      <rect x="78" y="50" width="28" height="16" rx="2" fill="#1A1712" opacity="0.06"/>
+    </svg>
+  </template>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+/* ─────────────────────────────────────────────
+   SHARED DATA
+───────────────────────────────────────────── */
+const RESEARCH = [
+  {
+    id:"01",
+    title:"Human–AI Coevolution in Travel",
+    sub:"Recommender Systems & Behavioral Impact",
+    desc:"Investigating how algorithmic recommendations reshape travel demand and how behavioral adaptation feeds back into system dynamics — closing the loop between AI deployment and human response.",
+    tags:["Recommender Systems","Travel Demand","Behavioral Modeling"],
+  },
+  {
+    id:"02",
+    title:"Reliable Mobility Representations",
+    sub:"Sparse, Biased & Partially-Observed Data",
+    desc:"Developing representation learning frameworks that extract robust, generalizable structure from mobility datasets afflicted by missingness, sampling bias, and limited observability.",
+    tags:["Representation Learning","Kernel Methods","Mobility Data"],
+  },
+  {
+    id:"03",
+    title:"Uncertainty-Aware ML for Demand",
+    sub:"Robust Methods for Endogenous Environments",
+    desc:"Building probabilistic ML methods that quantify and propagate uncertainty through endogenous demand systems, where model outputs actively shape the very phenomena being modeled.",
+    tags:["Probabilistic Modeling","Uncertainty Quantification","Robustness"],
+  },
+];
+
+const NEWS = [
+  { date:"Jul 2026", text:<>Our paper, &ldquo;Towards welfare-oriented recommendations in activity-travel behavior&rdquo; was accepted to the <a href="https://recsys.acm.org/recsys26/" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>2026 ACM Conference on Recommender Systems</a> (<strong>18% acceptance rate</strong>). See you in Minneapolis! (proceedings to follow)</>, link:null },
+  { date:"Jul 2026", text:'New preprint out: "AI-Assisted Digital Platforms Reshape Activity-Travel Behavior"', link:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7080958" },
+  { date:"Mar 2026", text:'New journal paper out: "On predicting sociodemographics from mobility signals" in Computers, Environment and Urban Systems.', link:"https://www.sciencedirect.com/science/article/abs/pii/S0198971526000220" },
+  { date:"Mar 2026", text:"Joining the University of Houston ISE department as a tenure-track Assistant Professor in Fall 2026. Recruiting multiple fully-funded PhD positions.", link:null },
+  { date:"Jan 2026", text:"Started as Postdoctoral Associate at NYU Tandon, affiliated with the Center for Urban Science and Progress (CUSP), working with Professor Takahiro Yabe.", link:null },
+  { date:"2025",     text:'New journal paper out: "From biases to opportunities: leveraging LBS data for next-generation transportation planning" in Transportation Research Part C.', link:"https://www.sciencedirect.com/science/article/pii/S0968090X25004206" },
+  { date:"2025",     text:'New journal paper out: "COVID & telecommuting-induced changes in individual activity and travel patterns: Evidence from the Puget Sound Region" in Transport Policy.', link:"https://www.sciencedirect.com/science/article/pii/S0967070X25003154" },
+  { date:"2025",     text:'New journal paper out: "A Framework for Measuring and Benchmarking Fairness of Generative Crowd-Flow Models" in ACM Journal on Computing and Sustainable Societies.', link:"https://dl.acm.org/doi/10.1145/3724409" },
+  { date:"2025",     text:'New journal paper out: "Beat the Morning Rush: Survival Analysis-Informed DNNs with Collaborative Filtering to Predict Departure Times" in IEEE Open Journal of ITS.', link:"https://ieeexplore.ieee.org/document/10897825" },
+  { date:"2024",     text:"Granted the Michael Kyte Region 10 Outstanding Student of the Year Award from PacTrans.", link:null },
+  { date:"2024",     text:"Joined Instacart as a Machine Learning PhD summer intern.", link:null },
+  { date:"2024",     text:'New journal paper out: "Learning to generate synthetic human mobility data: A physics-regularized Gaussian process approach" in Transportation Research Part B.', link:"https://www.sciencedirect.com/science/article/abs/pii/S0191261524001887" },
+  { date:"2024",     text:'New journal paper out: "Correcting Missingness in Passively-Generated Mobile Data with Multi-Task Gaussian Processes" in Transportation Research Part C.', link:"https://www.sciencedirect.com/science/article/pii/S0968090X24000445" },
+];
+
+const PUBLICATIONS = [
+  {
+    year:"2026",
+    title:"On predicting sociodemographics from mobility signals",
+    authors:"Ekin Uğurel, Cynthia Chen, Brian H. Y. Lee, Filipe Rodrigues",
+    venue:"Computers, Environment and Urban Systems",
+    links:{ pdf:"https://www.sciencedirect.com/science/article/abs/pii/S0198971526000220" },
+    thrust:"02",
+  },
+  {
+    year:"2025",
+    title:"Beat the Morning Rush: Survival analysis-informed DNNs with collaborative filtering to predict precise departure times",
+    authors:"Ekin Uğurel, Gaoang Wang",
+    venue:"IEEE Open Journal of Intelligent Transportation Systems",
+    links:{ pdf:"https://ieeexplore.ieee.org/document/10897825" },
+    thrust:"03",
+  },
+  {
+    year:"2025",
+    title:"From biases to opportunities: leveraging Location-Based-Service (LBS) data for next-generation transportation planning",
+    authors:"Cynthia Chen, Ryan Wang, Prateek Bansal, Lyra Chen, Ekin Uğurel, Yuteng Zhang, Xinhua Wu",
+    venue:"Transportation Research Part C: Emerging Technologies",
+    links:{ pdf:"https://www.sciencedirect.com/science/article/pii/S0968090X25004206" },
+    thrust:"02",
+  },
+  {
+    year:"2025",
+    title:"COVID & telecommuting-induced changes in individual activity and travel patterns: Evidence from the Puget Sound Region",
+    authors:"Grace Jia, Kaitlyn Ng, Ekin Uğurel, Brian Lee, Ram Pendyala, Cynthia Chen",
+    venue:"Transport Policy",
+    links:{ pdf:"https://www.sciencedirect.com/science/article/pii/S0967070X25003154" },
+    thrust:"01",
+  },
+  {
+    year:"2025",
+    title:"A Framework for Measuring and Benchmarking Fairness of Generative Crowd-Flow Models",
+    authors:"Jiaqi He, Apoorva Sheera, Jack McFarland, Feiyang Wang, et al., Ekin Uğurel, Afra Mashhadi",
+    venue:"ACM Journal on Computing and Sustainable Societies",
+    links:{ pdf:"https://dl.acm.org/doi/10.1145/3724409", code:"https://github.com/DSSG24-CF-Fairness/crowdflow-fairness" },
+    thrust:"02",
+  },
+  {
+    year:"2025",
+    title:"Exploring biases in travel behavior patterns in big passively-generated mobile data from 11 U.S. cities",
+    authors:"Yanchao Wang, Xiangyang Guan, Ekin Uğurel, Cynthia Chen, Shuai Huang, Qi Ryan Wang",
+    venue:"Journal of Transport Geography",
+    links:{ pdf:"https://www.sciencedirect.com/science/article/abs/pii/S096669232400317X" },
+    thrust:"02",
+  },
+  {
+    year:"2024",
+    title:"Metropolitan Planning Organizations' Uses of and Needs for Big Data",
+    authors:"Ekin Uğurel, Xinhua Wu, Ryan Wang, Brian H. Lee, Cynthia Chen",
+    venue:"Transport Findings",
+    links:{ pdf:"https://findingspress.org/article/127143-metropolitan-planning-organizations-uses-of-and-needs-for-big-data?auth_token=4-DxXNJb-JBO-Bp1SiJq" },
+    thrust:"02",
+  },
+  {
+    year:"2024",
+    title:"Learning to generate synthetic human mobility data: A physics-regularized Gaussian process approach based on multiple kernel learning",
+    authors:"Ekin Uğurel, Shuai Huang, Cynthia Chen",
+    venue:"Transportation Research Part B: Methodological",
+    links:{ pdf:"https://www.sciencedirect.com/science/article/abs/pii/S0191261524001887", code:"https://github.com/ekinugurel/physics-regularized-MTGP" },
+    thrust:"02",
+  },
+  {
+    year:"2024",
+    title:"Correcting Missingness in Passively-Generated Mobile Data with Multi-Task Gaussian Processes",
+    authors:"Ekin Uğurel, Xiangyang Guan, Yanchao Wang, Shuai Huang, Ryan Wang, Cynthia Chen",
+    venue:"Transportation Research Part C: Emerging Technologies",
+    links:{ pdf:"https://www.sciencedirect.com/science/article/pii/S0968090X24000445", code:"https://github.com/ekinugurel/GPSImpute" },
+    thrust:"02",
+  },
+  {
+    year:"2024",
+    title:"Uncovering Physics-regularized Data Generation Processes for Individual Human Mobility",
+    authors:"Ekin Uğurel, Shuai Huang, Cynthia Chen",
+    venue:"ISTTT 25 — International Symposium on Transportation and Traffic Theory",
+    links:{ pdf:"https://limos.engin.umich.edu/isttt25/wp-content/uploads/sites/3/sites/4/2024/06/ISTTT25-proceedings-015-min.pdf" },
+    thrust:"02",
+  },
+  {
+    year:"2023",
+    title:"Incident detection from novel data sources: Leveraging satellite imagery alongside GPS traces",
+    authors:"Ekin Uğurel, Steffen Coenen, Minda Zhou Chen, Cynthia Chen",
+    venue:"Preprint",
+    links:{ pdf:"https://arxiv.org/abs/2401.10890", code:"https://github.com/ekinugurel/SatMobFusion" },
+    thrust:"02",
+  },
+  {
+    year:"2023",
+    title:"Time-varying Transition Matrices with Multi-task Gaussian Processes",
+    authors:"Ekin Uğurel",
+    venue:"Preprint",
+    links:{ pdf:"https://arxiv.org/abs/2306.11772" },
+    thrust:"03",
+  },
+];
+
+/* ─────────────────────────────────────────────
+   LOGO MARK  (diamond node-graph)
+───────────────────────────────────────────── */
+const Logo = ({ color="#C8102E", size=28 }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <line x1="16" y1="3"  x2="3"  y2="16" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="16" y1="3"  x2="29" y2="16" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="3"  y1="16" x2="16" y2="29" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="29" y1="16" x2="16" y2="29" stroke={color} strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="3"  y1="16" x2="29" y2="16" stroke={color} strokeWidth="1"   strokeLinecap="round" opacity="0.3"/>
+    <circle cx="16" cy="3"  r="2.8" fill={color}/>
+    <circle cx="3"  cy="16" r="2.2" fill={color} opacity="0.55"/>
+    <circle cx="29" cy="16" r="2.2" fill={color} opacity="0.55"/>
+    <circle cx="16" cy="29" r="2.8" fill={color}/>
+  </svg>
+);
+
+/* ─────────────────────────────────────────────
+   PHOTO PLACEHOLDER
+───────────────────────────────────────────── */
+const PhotoBox = ({ style={} }) => (
+  <div style={{
+    width:"100%", aspectRatio:"3/4", borderRadius:4,
+    background:"repeating-linear-gradient(45deg,#E8E4DC 0,#E8E4DC 1px,transparent 1px,transparent 8px)",
+    display:"flex", alignItems:"center", justifyContent:"center",
+    ...style
+  }}>
+    <div style={{ fontFamily:"monospace", fontSize:10, textAlign:"center", lineHeight:1.8, color:"#999", padding:"0 12px" }}>
+      [ photo<br/>ekin.ugurel ]
+    </div>
+  </div>
+);
+
+/* ══════════════════════════════════════════════
+   VARIANT 1 — ACADEMIC MINIMAL
+   Warm white · DM Serif Display + DM Sans · UH red accents
+══════════════════════════════════════════════ */
+const V1 = () => {
+  const R="#C8102E", INK="#1A1712", MUT="#7A6F63", BG="#FAFAF8", TAN="#F3F0EB", LINE="#E2DDD4";
+  const serif = { fontFamily:"'DM Serif Display', serif" };
+  const sans  = { fontFamily:"'DM Sans', sans-serif" };
+
+  const NavLink = ({ label, href="#" }) => {
+    const [hov,setHov] = useState(false);
+    return <a href={href} style={{ ...sans, fontSize:13, color:hov?R:MUT, transition:"color .15s" }} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>{label}</a>;
+  };
+  const Btn = ({ children, primary, href="#", style={} }) => {
+    const [hov,setHov]=useState(false);
+    return <a href={href} style={{ ...sans, display:"inline-block", padding:"11px 26px", borderRadius:4, fontSize:13.5, fontWeight:500, transition:"all .15s",
+      background: primary?(hov?"#a80e26":R):"transparent",
+      color: primary?"#fff":(hov?R:INK),
+      border: primary?"none":`1.5px solid ${hov?R:LINE}`,
+      ...style
+    }} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>{children}</a>;
+  };
+
+  return (
+    <div style={{ ...sans, background:BG, color:INK, minHeight:"100vh" }}>
+      {/* NAV */}
+      <nav style={{ position:"sticky", top:0, background:BG+"F5", backdropFilter:"blur(10px)", borderBottom:`1px solid ${LINE}`, zIndex:100 }}>
+        <div style={{ maxWidth:1100, margin:"0 auto", padding:"0 48px", height:64, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <Logo color={R} size={26}/>
+            <div>
+              <div style={{ ...serif, fontSize:15.5, color:INK }}>BMLS Lab</div>
+              <div style={{ fontSize:9.5, color:MUT, letterSpacing:"0.07em", textTransform:"uppercase" }}>University of Houston</div>
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:30 }}>
+            {[["Research","#research"],["Publications","#publications"],["People","#people"],["News","#news"],["Join Us","#join"]].map(([l,h])=><NavLink key={l} label={l} href={h}/>)}
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section style={{ maxWidth:1100, margin:"0 auto", padding:"96px 48px 72px" }}>
+        <div className="fu" style={{ display:"flex", alignItems:"center", gap:10, marginBottom:22 }}>
+          <div style={{ width:28, height:2, background:R, borderRadius:1 }}/>
+          <span style={{ fontSize:11, letterSpacing:"0.13em", textTransform:"uppercase", color:R, fontWeight:500 }}>University of Houston · Industrial &amp; Systems Engineering</span>
+        </div>
+        <h1 className="fu1" style={{ ...serif, fontSize:"clamp(42px,5.5vw,72px)", lineHeight:1.08, color:INK, maxWidth:740, marginBottom:26 }}>
+          Behavioral Machine Learning<br/>&amp; Systems Lab
+        </h1>
+        <p className="fu2" style={{ fontSize:17, lineHeight:1.75, color:MUT, maxWidth:580, marginBottom:40 }}>
+          We develop machine learning frameworks to model human and organizational decision-making within complex transportation and urban systems — bridging theoretical ML with practical challenges in long-range planning.
+        </p>
+        <div className="fu3" style={{ display:"flex", gap:14 }}>
+          <Btn primary href="#research">Our Research</Btn>
+          <Btn href="#join">Join the Lab</Btn>
+        </div>
+        <div className="fu4" style={{ display:"flex", gap:48, marginTop:60, paddingTop:40, borderTop:`1px solid ${LINE}` }}>
+          {[
+            ["ML + Behavioral Science","Core Methodology"],
+            ["Transportation & Urban Systems","Application Domain"],
+            ["UQ · Fairness · Interpretability","Design Principles"],
+          ].map(([v,l])=>(
+            <div key={l}>
+              <div style={{ fontSize:14, fontWeight:600, color:INK, marginBottom:4 }}>{v}</div>
+              <div style={{ fontSize:10.5, color:MUT, textTransform:"uppercase", letterSpacing:"0.08em" }}>{l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* RESEARCH */}
+      <section id="research" style={{ background:TAN, padding:"80px 48px" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
+            <h2 style={{ ...serif, fontSize:36, color:INK }}>Research Thrusts</h2>
+            <div style={{ flex:1, height:1, background:LINE }}/>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:22 }}>
+            {RESEARCH.map((r,i)=>{
+              const [hov,setHov]=useState(false);
+              return (
+                <div key={r.id} style={{ background:"#fff", padding:"32px 28px", borderRadius:5, borderTop:`3px solid ${R}`,
+                  boxShadow: hov?"0 8px 28px rgba(0,0,0,0.07)":"0 2px 8px rgba(0,0,0,0.03)", transition:"box-shadow .2s" }}
+                  onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
+                  <div style={{ fontSize:11, fontWeight:700, color:R, letterSpacing:"0.1em", marginBottom:12 }}>{r.id}</div>
+                  <h3 style={{ ...serif, fontSize:19, color:INK, lineHeight:1.3, marginBottom:6 }}>{r.title}</h3>
+                  <div style={{ fontSize:12, color:MUT, fontStyle:"italic", marginBottom:14 }}>{r.sub}</div>
+                  <p style={{ fontSize:13.5, lineHeight:1.65, color:"#4A4238" }}>{r.desc}</p>
+                  <div style={{ display:"flex", flexWrap:"wrap", gap:6, marginTop:18 }}>
+                    {r.tags.map(t=><span key={t} style={{ fontSize:10.5, padding:"3px 10px", background:TAN, borderRadius:100, color:MUT }}>{t}</span>)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* PI BIO */}
+      <section id="people" style={{ padding:"80px 48px" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"220px 1fr", gap:64, alignItems:"start" }}>
+          <img src={window.__resources?.profilePhoto || "uploads/IMG_3620.jpeg"} alt="Ekin Uğurel" style={{ width:"100%", aspectRatio:"3/4", objectFit:"cover", objectPosition:"center top", borderRadius:4, border:`1px solid ${LINE}`, display:"block" }}/>
+          <div>
+            <div style={{ fontSize:11, letterSpacing:"0.12em", textTransform:"uppercase", color:R, marginBottom:14, fontWeight:500 }}>Principal Investigator</div>
+            <h2 style={{ ...serif, fontSize:42, color:INK, marginBottom:6 }}>Ekin Uğurel</h2>
+            <div style={{ fontSize:14.5, color:MUT, marginBottom:24, lineHeight:1.6 }}>
+              Assistant Professor, Industrial and Systems Engineering<br/>University of Houston
+            </div>
+            <p style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:18 }}>
+              Dr. Uğurel earned his PhD in Transportation Engineering from the University of Washington (2025), co-advised by Cynthia Chen and Shuai Huang. He was a Postdoctoral Associate at NYU's Center for Urban Science and Progress (CUSP), working with Professor Takahiro Yabe, and held a visiting position at the Technical University of Denmark's ML for Smart Mobility group.
+            </p>
+            <p style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:28 }}>
+              His work bridges theoretical ML and practical challenges in long-range transportation planning, travel behavior, and supply chain logistics.
+            </p>
+            <div style={{ display:"flex", gap:22, flexWrap:"wrap" }}>
+              {[
+                ["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao",false],
+                ["GitHub","https://github.com/ekinugurel",false],
+                ["Email","mailto:eugurel@Central.UH.EDU",false],
+                ["CV","mailto:eugurel@Central.UH.EDU?subject=CV%20Request",true],
+              ].map(([l,href,isReq])=>{
+                const [hov,setHov]=useState(false);
+                return (
+                  <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer"
+                    style={{ fontSize:13, color:hov?R:MUT, borderBottom:`1px solid ${hov?R:LINE}`, paddingBottom:2, transition:"all .15s", display:"flex", alignItems:"center", gap:4 }}
+                    onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
+                    {l}{isReq&&<span style={{ fontSize:10, opacity:0.6 }}>(on request)</span>}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWS */}
+      <section id="news" style={{ background:TAN, padding:"80px 48px" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:36 }}>
+            <h2 style={{ ...serif, fontSize:36, color:INK }}>News</h2>
+            <div style={{ flex:1, height:1, background:LINE }}/>
+          </div>
+          {NEWS.slice(0,6).map((n,i)=>(
+            <div key={i} style={{ display:"grid", gridTemplateColumns:"100px 1fr", gap:32, padding:"18px 0", borderBottom:`1px solid ${LINE}` }}>
+              <div style={{ fontSize:12, fontWeight:600, color:R, paddingTop:2 }}>{n.date}</div>
+              <div style={{ fontSize:14, lineHeight:1.68, color:"#4A4238" }}>
+                {n.link
+                  ? <a href={n.link} target="_blank" rel="noreferrer" style={{ color:"#4A4238", borderBottom:`1px solid ${LINE}`, paddingBottom:1 }}>{n.text}</a>
+                  : n.text}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PUBLICATIONS */}
+      <section id="publications" style={{ padding:"80px 48px" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
+            <h2 style={{ ...serif, fontSize:36, color:INK }}>Publications</h2>
+            <div style={{ flex:1, height:1, background:LINE }}/>
+          </div>
+          {PUBLICATIONS.map((p,i)=>{
+            const [hov,setHov]=useState(false);
+            return (
+              <div key={i} style={{ display:"grid", gridTemplateColumns:"56px 1fr", gap:24, padding:"22px 0",
+                borderBottom:`1px solid ${LINE}`, transition:"opacity .15s", opacity:hov?1:0.9 }}
+                onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
+                <div style={{ fontSize:11, fontWeight:600, color:MUT, paddingTop:3, letterSpacing:"0.02em" }}>{p.year}</div>
+                <div>
+                  <div style={{ fontSize:15, fontWeight:600, color:INK, lineHeight:1.35, marginBottom:5 }}>
+                    {p.links.pdf
+                      ? <a href={p.links.pdf} target="_blank" rel="noreferrer"
+                          style={{ color:INK, borderBottom:`1px solid ${hov?R:LINE}`, paddingBottom:1, transition:"border-color .15s" }}>{p.title}</a>
+                      : p.title}
+                  </div>
+                  <div style={{ fontSize:12.5, color:MUT, marginBottom:8, lineHeight:1.5 }}>{p.authors}</div>
+                  <div style={{ display:"flex", alignItems:"center", gap:12, flexWrap:"wrap" }}>
+                    <span style={{ fontSize:12, fontStyle:"italic", color:"#7A6F63" }}>{p.venue}</span>
+                    {p.links.pdf && <a href={p.links.pdf} target="_blank" rel="noreferrer"
+                      style={{ fontSize:11, fontWeight:700, color:R, letterSpacing:"0.05em" }}>PDF ↗</a>}
+                    {p.links.code && <a href={p.links.code} target="_blank" rel="noreferrer"
+                      style={{ fontSize:11, fontWeight:700, color:MUT, letterSpacing:"0.05em" }}>Code ↗</a>}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* JOIN US */}
+      <section id="join" style={{ background:TAN, padding:"80px 48px" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
+            <h2 style={{ ...serif, fontSize:36, color:INK }}>Join the Lab</h2>
+            <div style={{ flex:1, height:1, background:LINE }}/>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:22, marginBottom:28 }}>
+            {[
+              { role:"PhD Students", detail:"Multiple fully-funded positions for Fall 2026. Ideal candidates have strong foundations in machine learning, statistics, probability, or transportation/systems engineering. Experience with Python and scientific computing is expected.", highlight:true },
+              { role:"Visiting Scholars & Postdocs", detail:"Prospective visiting scholars and postdoctoral researchers with aligned interests are welcome to reach out. Positions are subject to funding availability.", highlight:false },
+            ].map(({role,detail,highlight})=>(
+              <div key={role} style={{ background:"#fff", padding:"28px 26px", borderRadius:5,
+                borderTop:`3px solid ${highlight?R:LINE}`,
+                boxShadow:"0 2px 8px rgba(0,0,0,0.03)" }}>
+                <h3 style={{ ...serif, fontSize:20, color:INK, marginBottom:10 }}>{role}</h3>
+                <p style={{ fontSize:14, lineHeight:1.72, color:MUT }}>{detail}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ background:"#fff", padding:"26px 32px", borderRadius:5,
+            borderLeft:`4px solid ${R}`, boxShadow:"0 2px 8px rgba(0,0,0,0.03)",
+            display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <div>
+              <div style={{ fontSize:14, fontWeight:600, color:INK, marginBottom:4 }}>Interested? Get in touch.</div>
+              <div style={{ fontSize:13.5, color:MUT }}>Send your CV, a brief statement of research interests, and any relevant work.</div>
+            </div>
+            <a href="mailto:eugurel@Central.UH.EDU" style={{ flexShrink:0, marginLeft:36, display:"inline-block", padding:"11px 26px", borderRadius:4, fontSize:13.5, fontWeight:500, background:R, color:"#fff", whiteSpace:"nowrap" }}>eugurel@Central.UH.EDU →</a>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{ borderTop:`1px solid ${LINE}`, padding:"28px 48px" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+            <Logo color={R} size={17}/>
+            <span style={{ fontSize:12, color:MUT }}>BMLS Lab · University of Houston · Industrial and Systems Engineering</span>
+          </div>
+          <span style={{ fontSize:12, color:"#C8C0B4" }}>© 2026</span>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+/* ══════════════════════════════════════════════
+   VARIANT 2 — BOLD DARK
+   Near-black · Space Grotesk · UH red as neon accent
+══════════════════════════════════════════════ */
+const V2 = () => {
+  const R="#E01229", BG="#09080C", SURF="#110F17", CARD="#161320", BORDER="#1E1B28", TEXT="#F0EDE6", MUT="#6E6682";
+  const sg = { fontFamily:"'Space Grotesk', sans-serif" };
+
+  const NavLink = ({ label, href="#" }) => {
+    const [h,setH]=useState(false);
+    return <a href={href} style={{ ...sg, fontSize:13, color:h?TEXT:MUT, transition:"color .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{label}</a>;
+  };
+
+  return (
+    <div style={{ ...sg, background:BG, color:TEXT, minHeight:"100vh" }}>
+      {/* NAV */}
+      <nav style={{ position:"sticky", top:0, zIndex:100, borderBottom:`1px solid ${BORDER}`, background:BG+"EE", backdropFilter:"blur(14px)" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", padding:"0 48px", height:58, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <Logo color={R} size={23}/>
+            <span style={{ fontSize:15, fontWeight:600, letterSpacing:"0.01em" }}>BMLS Lab</span>
+          </div>
+          <div style={{ display:"flex", gap:28 }}>
+            {[["Research","#research"],["People","#people"],["News","#news"],["Join Us","#join"]].map(([l,h])=><NavLink key={l} label={l} href={h}/>)}
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section style={{ position:"relative", padding:"100px 48px 80px", overflow:"hidden" }}>
+        {/* subtle grid */}
+        <div style={{ position:"absolute", inset:0, zIndex:0,
+          backgroundImage:`linear-gradient(${BORDER} 1px, transparent 1px), linear-gradient(90deg, ${BORDER} 1px, transparent 1px)`,
+          backgroundSize:"72px 72px", opacity:0.5 }}/>
+        <div style={{ position:"absolute", inset:0, zIndex:1,
+          background:`radial-gradient(ellipse 80% 55% at 50% 110%, ${BG} 45%, transparent)` }}/>
+        {/* big BG text */}
+        <div style={{ position:"absolute", right:-20, top:20, zIndex:1, fontSize:"clamp(120px,20vw,240px)", fontWeight:700, letterSpacing:"-0.04em",
+          color:"transparent", WebkitTextStroke:`1px ${BORDER}`, userSelect:"none", lineHeight:1 }}>BMLS</div>
+
+        <div style={{ maxWidth:1200, margin:"0 auto", position:"relative", zIndex:2 }}>
+          <div className="fu" style={{ display:"flex", alignItems:"center", gap:10, marginBottom:28 }}>
+            <div style={{ width:7, height:7, borderRadius:"50%", background:R, boxShadow:`0 0 18px ${R}88` }}/>
+            <span style={{ fontFamily:"monospace", fontSize:11, letterSpacing:"0.12em", color:R }}>UNIVERSITY OF HOUSTON · ISE DEPARTMENT</span>
+          </div>
+          <h1 className="fu1" style={{ fontSize:"clamp(50px,8vw,98px)", fontWeight:700, lineHeight:1.0, letterSpacing:"-0.025em", marginBottom:6 }}>Behavioral</h1>
+          <h1 className="fu2" style={{ fontSize:"clamp(50px,8vw,98px)", fontWeight:700, lineHeight:1.0, letterSpacing:"-0.025em", color:R, marginBottom:6 }}>Machine Learning</h1>
+          <h1 className="fu3" style={{ fontSize:"clamp(50px,8vw,98px)", fontWeight:300, lineHeight:1.0, letterSpacing:"-0.025em", marginBottom:44 }}>&amp; Systems</h1>
+          <p className="fu4" style={{ fontSize:17, lineHeight:1.72, color:MUT, maxWidth:520, marginBottom:42 }}>
+            Probabilistic modeling, kernel methods, and representation learning — extracting insight from complex transportation data with an emphasis on uncertainty, fairness, and interpretability.
+          </p>
+          <div style={{ display:"flex", gap:14 }}>
+            {[["Explore Research", true, "#research"],["Join the Lab", false, "#join"]].map(([l,p,href])=>{
+              const [h,setH]=useState(false);
+              return <a key={l} href={href} style={{ fontSize:14, fontWeight:600, letterSpacing:"0.01em", padding:"13px 30px", borderRadius:3,
+                background:p?(h?"#f51730":R):"transparent",
+                border:p?"none":`1px solid ${h?MUT:BORDER}`,
+                color:p?"#fff":(h?TEXT:MUT),
+                transition:"all .15s" }}
+                onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{l}</a>;
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* RESEARCH */}
+      <section id="research" style={{ padding:"80px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:36 }}>
+            <span style={{ fontFamily:"monospace", fontSize:11, color:R, letterSpacing:"0.1em" }}>// RESEARCH THRUSTS</span>
+            <div style={{ flex:1, height:1, background:BORDER }}/>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:3 }}>
+            {RESEARCH.map((r,i)=>{
+              const [h,setH]=useState(false);
+              return (
+                <div key={r.id} style={{ background:CARD, padding:"36px 30px",
+                  borderTop:`2px solid ${h||i===0?R:BORDER}`, transition:"border-color .2s" }}
+                  onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>
+                  <div style={{ fontFamily:"monospace", fontSize:26, fontWeight:700, color:BORDER, marginBottom:14, userSelect:"none" }}>{r.id}</div>
+                  <h3 style={{ fontSize:18, fontWeight:600, color:TEXT, lineHeight:1.3, marginBottom:7 }}>{r.title}</h3>
+                  <div style={{ fontSize:12, color:R, fontWeight:500, marginBottom:14 }}>{r.sub}</div>
+                  <p style={{ fontSize:13.5, lineHeight:1.65, color:MUT }}>{r.desc}</p>
+                  <div style={{ display:"flex", flexWrap:"wrap", gap:6, marginTop:18 }}>
+                    {r.tags.map(t=><span key={t} style={{ fontFamily:"monospace", fontSize:10, padding:"3px 8px", border:`1px solid ${BORDER}`, color:MUT, borderRadius:2 }}>{t}</span>)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* PI BIO */}
+      <section id="people" style={{ background:SURF, padding:"80px 48px", borderTop:`1px solid ${BORDER}`, borderBottom:`1px solid ${BORDER}` }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 240px", gap:72, alignItems:"center" }}>
+          <div>
+            <div style={{ fontFamily:"monospace", fontSize:11, color:R, letterSpacing:"0.1em", marginBottom:16 }}>// PRINCIPAL INVESTIGATOR</div>
+            <h2 style={{ fontSize:52, fontWeight:700, letterSpacing:"-0.025em", marginBottom:8 }}>Ekin Uğurel</h2>
+            <div style={{ fontSize:14, color:MUT, marginBottom:28, letterSpacing:"0.01em" }}>Assistant Professor · Industrial &amp; Systems Engineering · University of Houston</div>
+            <p style={{ fontSize:15, lineHeight:1.76, color:"#9991A8", marginBottom:18 }}>
+              PhD in Transportation Engineering, University of Washington (2025). Postdoctoral Fellow at NYU's Center for Urban Science and Progress (CUSP), working with Professor Takahiro Yabe. Visiting researcher at DTU's Machine Learning for Smart Mobility group.
+            </p>
+            <p style={{ fontSize:15, lineHeight:1.76, color:"#9991A8", marginBottom:32 }}>
+              Research bridges theoretical ML and practical challenges in long-range transportation planning, travel behavior modeling, and supply chain logistics.
+            </p>
+            <div style={{ display:"flex", gap:20 }}>
+              {[["CV","mailto:eugurel@Central.UH.EDU?subject=CV%20Request"],["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao"],["GitHub","https://github.com/ekinugurel"],["Email","mailto:eugurel@Central.UH.EDU"]].map(([l,href])=>{
+                const [h,setH]=useState(false);
+                return <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer" style={{ fontSize:13, color:h?TEXT:MUT, borderBottom:`1px solid ${h?MUT:BORDER}`, paddingBottom:3, transition:"all .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{l}</a>;
+              })}
+            </div>
+          </div>
+          <div style={{ width:"100%", aspectRatio:"3/4", background:`repeating-linear-gradient(45deg,${CARD} 0,${CARD} 1px,transparent 1px,transparent 10px)`,
+            border:`1px solid ${BORDER}`, borderRadius:4, display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <div style={{ fontFamily:"monospace", fontSize:10, color:MUT, textAlign:"center", lineHeight:1.8 }}>[ photo<br/>ekin.ugurel ]</div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWS */}
+      <section id="news" style={{ padding:"80px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:36 }}>
+            <span style={{ fontFamily:"monospace", fontSize:11, color:R, letterSpacing:"0.1em" }}>// NEWS</span>
+            <div style={{ flex:1, height:1, background:BORDER }}/>
+          </div>
+          {NEWS.map((n,i)=>(
+            <div key={i} style={{ display:"grid", gridTemplateColumns:"110px 1fr", gap:32, padding:"18px 0", borderBottom:`1px solid ${BORDER}` }}>
+              <div style={{ fontFamily:"monospace", fontSize:10.5, color:R, paddingTop:2 }}>{n.date}</div>
+              <div style={{ fontSize:14, lineHeight:1.68, color:MUT }}>{n.text}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* JOIN US */}
+      <section id="join" style={{ padding:"60px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <div style={{ border:`1px solid ${R}`, borderRadius:4, padding:"44px 48px",
+            display:"flex", justifyContent:"space-between", alignItems:"center",
+            background:`${R}0A` }}>
+            <div>
+              <div style={{ fontFamily:"monospace", fontSize:11, color:R, letterSpacing:"0.1em", marginBottom:10 }}>// OPEN POSITIONS</div>
+              <h3 style={{ fontSize:24, fontWeight:600, marginBottom:8 }}>PhD Students — Fall 2026</h3>
+              <p style={{ fontSize:14, color:MUT, maxWidth:460 }}>Fully-funded positions. ML, statistics, or engineering backgrounds welcome.</p>
+            </div>
+            {(()=>{
+              const [h,setH]=useState(false);
+              return <a href="mailto:ekin.ugurel@houston.edu" style={{ flexShrink:0, background:h?"#f51730":R, color:"#fff", padding:"13px 32px", borderRadius:3, fontSize:14, fontWeight:600, marginLeft:40, whiteSpace:"nowrap", transition:"background .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>Apply →</a>;
+            })()}
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{ borderTop:`1px solid ${BORDER}`, padding:"26px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+            <Logo color={R} size={15}/>
+            <span style={{ fontFamily:"monospace", fontSize:10.5, color:MUT }}>BMLS LAB · UNIVERSITY OF HOUSTON</span>
+          </div>
+          <span style={{ fontFamily:"monospace", fontSize:10.5, color:BORDER }}>© 2026</span>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+/* ══════════════════════════════════════════════
+   VARIANT 3 — SYSTEMS GRID
+   Cool slate · IBM Plex · Split hero · Network SVG
+══════════════════════════════════════════════ */
+const NetworkDiagram = () => {
+  const nodes = [
+    { x:270, y:72,  label:"Travel Demand",   r:7,  hi:true  },
+    { x:110, y:170, label:"Mobility Data",   r:5,  hi:false },
+    { x:380, y:185, label:"ML Models",       r:9,  hi:true  },
+    { x:55,  y:300, label:"Sparse Data",     r:4,  hi:false },
+    { x:210, y:295, label:"Uncertainty",     r:5.5,hi:false },
+    { x:355, y:335, label:"Urban Systems",   r:6.5,hi:true  },
+    { x:465, y:150, label:"Recommenders",    r:4,  hi:false },
+    { x:155, y:405, label:"Fairness",        r:4.5,hi:false },
+    { x:305, y:430, label:"Behavior",        r:5,  hi:false },
+  ];
+  const edges=[[0,1],[0,2],[0,6],[1,2],[1,3],[2,4],[2,5],[2,6],[3,7],[4,5],[4,7],[5,8],[7,8],[1,4]];
+  const R="#C8102E", NODE="#2A3575", EDGE="#3A4490";
+
+  return (
+    <svg viewBox="0 0 520 480" style={{ width:"100%", height:"auto" }}>
+      {edges.map(([a,b],i)=>(
+        <line key={i} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y} stroke={EDGE} strokeWidth="1" opacity="0.45"/>
+      ))}
+      {nodes.map((n,i)=>(
+        <g key={i}>
+          <circle cx={n.x} cy={n.y} r={n.r+7} fill={n.hi?R:NODE} opacity="0.07"/>
+          <circle cx={n.x} cy={n.y} r={n.r} fill={n.hi?R:NODE} opacity="0.75"/>
+          <text x={n.x+n.r+7} y={n.y+4} fontSize="9.5" fill="#4A5480" fontFamily="'IBM Plex Mono',monospace" letterSpacing="0.03em">{n.label}</text>
+        </g>
+      ))}
+    </svg>
+  );
+};
+
+const V3 = () => {
+  const R="#C8102E", BG="#F1F3F7", INK="#1E2235", MUT="#5A6080", BLUE="#2558A0", BORDER="#D4D8E8", CARD="#FFFFFF";
+  const plex = { fontFamily:"'IBM Plex Sans', sans-serif" };
+  const mono = { fontFamily:"'IBM Plex Mono', monospace" };
+
+  const NavLink = ({ label, href="#" }) => {
+    const [h,setH]=useState(false);
+    return <a href={href} style={{ ...plex, fontSize:13, color:h?R:MUT, transition:"color .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{label}</a>;
+  };
+
+  return (
+    <div style={{ ...plex, background:BG, color:INK, minHeight:"100vh" }}>
+      {/* NAV */}
+      <nav style={{ position:"sticky", top:0, zIndex:100, background:CARD, borderBottom:`1px solid ${BORDER}` }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", padding:"0 48px", height:58, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <Logo color={R} size={23}/>
+            <div>
+              <div style={{ fontSize:15, fontWeight:700 }}>BMLS Lab</div>
+              <div style={{ ...mono, fontSize:9, color:MUT, letterSpacing:"0.07em" }}>UH · ISE DEPT</div>
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:30 }}>
+            {[["Research","#research"],["People","#people"],["News","#news"],["Join Us","#join"]].map(([l,h])=><NavLink key={l} label={l} href={h}/>)}
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO — split */}
+      <section style={{ maxWidth:1200, margin:"0 auto", padding:"72px 48px 64px", display:"grid", gridTemplateColumns:"1fr 1fr", gap:56, alignItems:"center" }}>
+        <div>
+          <div className="fu" style={{ display:"flex", alignItems:"center", gap:8, marginBottom:18 }}>
+            <div style={{ width:22, height:2, background:R }}/>
+            <span style={{ ...mono, fontSize:10, letterSpacing:"0.12em", color:R }}>BEHAVIORAL ML &amp; SYSTEMS</span>
+          </div>
+          <h1 className="fu1" style={{ fontSize:"clamp(34px,4vw,54px)", fontWeight:700, lineHeight:1.1, letterSpacing:"-0.02em", marginBottom:20 }}>
+            The <span style={{ color:R }}>BMLS</span> Lab<br/>
+            <span style={{ fontWeight:300, fontSize:"0.85em", color:MUT }}>at University of Houston</span>
+          </h1>
+          <p className="fu2" style={{ fontSize:15, lineHeight:1.78, color:MUT, marginBottom:28 }}>
+            Machine learning frameworks to model human and organizational decision-making in complex transportation and urban systems — emphasizing{" "}
+            <strong style={{ color:INK, fontWeight:600 }}>uncertainty quantification</strong>,{" "}
+            <strong style={{ color:INK, fontWeight:600 }}>bias mitigation</strong>, and{" "}
+            <strong style={{ color:INK, fontWeight:600 }}>interpretability</strong>.
+          </p>
+          <div className="fu3" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:8, marginBottom:32 }}>
+            {[["Probabilistic\nModeling",R],["Kernel\nMethods",BLUE],["Representation\nLearning","#2A6040"]].map(([l,c])=>(
+              <div key={l} style={{ padding:"10px 12px", background:CARD, border:`1px solid ${BORDER}`, borderTop:`3px solid ${c}`, borderRadius:3 }}>
+                <div style={{ ...mono, fontSize:9.5, color:c, whiteSpace:"pre-line", lineHeight:1.55 }}>{l}</div>
+              </div>
+            ))}
+          </div>
+          <div className="fu4" style={{ display:"flex", gap:10 }}>
+            {[["Research →",true,"#research"],["Join the Lab",false,"#join"]].map(([l,p,href])=>{
+              const [h,setH]=useState(false);
+              return <a key={l} href={href} style={{ fontSize:13, fontWeight:p?600:500, padding:"10px 22px", borderRadius:3,
+                background:p?(h?"#a80e26":R):"transparent",
+                border:p?"none":`1px solid ${h?R:BORDER}`,
+                color:p?"#fff":(h?R:INK),
+                transition:"all .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{l}</a>;
+            })}
+          </div>
+        </div>
+        <div className="fi" style={{ background:CARD, border:`1px solid ${BORDER}`, borderRadius:6, padding:"20px 20px 8px", boxShadow:"0 4px 20px rgba(0,0,0,0.05)" }}>
+          <div style={{ ...mono, fontSize:9, color:MUT, letterSpacing:"0.08em", marginBottom:8 }}>RESEARCH NETWORK — BMLS LAB</div>
+          <NetworkDiagram/>
+        </div>
+      </section>
+
+      {/* RESEARCH */}
+      <section id="research" style={{ background:CARD, borderTop:`1px solid ${BORDER}`, borderBottom:`1px solid ${BORDER}`, padding:"64px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:32 }}>
+            <h2 style={{ fontSize:28, fontWeight:700, letterSpacing:"-0.01em" }}>Research Thrusts</h2>
+            <div style={{ ...mono, fontSize:9.5, color:MUT, letterSpacing:"0.08em" }}>3 ACTIVE AREAS</div>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:1, background:BORDER }}>
+            {RESEARCH.map((r)=>{
+              const [h,setH]=useState(false);
+              return (
+                <div key={r.id} style={{ background:h?"#EAECF4":BG, padding:"28px 24px", transition:"background .2s" }}
+                  onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>
+                  <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:14 }}>
+                    <div style={{ ...mono, fontSize:9.5, color:R, letterSpacing:"0.08em" }}>{r.id}</div>
+                    <div style={{ height:1, flex:1, background:BORDER }}/>
+                  </div>
+                  <h3 style={{ fontSize:16, fontWeight:700, marginBottom:5, lineHeight:1.3 }}>{r.title}</h3>
+                  <div style={{ ...mono, fontSize:9.5, color:BLUE, marginBottom:12 }}>{r.sub}</div>
+                  <p style={{ fontSize:13.5, lineHeight:1.65, color:MUT }}>{r.desc}</p>
+                  <div style={{ display:"flex", flexWrap:"wrap", gap:5, marginTop:14 }}>
+                    {r.tags.map(t=><span key={t} style={{ ...mono, fontSize:9, padding:"2px 8px", background:"#DDE0EC", color:MUT, borderRadius:2 }}>{t}</span>)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* PI BIO */}
+      <section id="people" style={{ padding:"64px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", display:"grid", gridTemplateColumns:"180px 1fr", gap:48, alignItems:"start" }}>
+          <div style={{ width:"100%", aspectRatio:"3/4", background:`repeating-linear-gradient(45deg,${BORDER} 0,${BORDER} 1px,transparent 1px,transparent 8px)`,
+            border:`1px solid ${BORDER}`, borderRadius:4, display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <div style={{ fontFamily:"monospace", fontSize:9.5, color:MUT, textAlign:"center", lineHeight:1.8 }}>[ photo<br/>ekin.ugurel ]</div>
+          </div>
+          <div>
+            <div style={{ ...mono, fontSize:9.5, color:R, letterSpacing:"0.1em", marginBottom:12 }}>PRINCIPAL INVESTIGATOR</div>
+            <h2 style={{ fontSize:38, fontWeight:700, letterSpacing:"-0.01em", marginBottom:4 }}>Ekin Uğurel</h2>
+            <div style={{ fontSize:14, color:MUT, marginBottom:20 }}>Assistant Professor, Industrial and Systems Engineering · University of Houston</div>
+            <div style={{ display:"flex", gap:7, flexWrap:"wrap", marginBottom:22 }}>
+              {["PhD · UW Transportation Eng.","Postdoc · NYU CUSP","Visiting · DTU MLSM"].map(t=>(
+                <span key={t} style={{ ...mono, fontSize:9.5, padding:"4px 10px", background:"#DDE0EC", color:MUT, borderRadius:2 }}>{t}</span>
+              ))}
+            </div>
+            <p style={{ fontSize:14.5, lineHeight:1.78, color:MUT, marginBottom:24 }}>
+              Dr. Uğurel develops ML frameworks for modeling decision-making in transportation and urban systems, bridging the gap between theoretical ML and practical challenges in long-range planning and travel behavior.
+            </p>
+            <div style={{ display:"flex", gap:20 }}>
+              {[["CV","mailto:eugurel@Central.UH.EDU?subject=CV%20Request"],["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao"],["GitHub","https://github.com/ekinugurel"],["Email","mailto:eugurel@Central.UH.EDU"]].map(([l,href])=>{
+                const [h,setH]=useState(false);
+                return <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer" style={{ fontSize:13, color:h?R:BLUE, borderBottom:`1px solid ${h?R:"transparent"}`, paddingBottom:2, transition:"all .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{l}</a>;
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWS */}
+      <section id="news" style={{ background:CARD, borderTop:`1px solid ${BORDER}`, padding:"64px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <h2 style={{ fontSize:28, fontWeight:700, marginBottom:28 }}>News</h2>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:1, background:BORDER }}>
+            {NEWS.map((n,i)=>(
+              <div key={i} style={{ background:BG, padding:"18px 22px", display:"flex", gap:18 }}>
+                <div style={{ ...mono, fontSize:10, color:R, flexShrink:0, paddingTop:2, width:72 }}>{n.date}</div>
+                <div style={{ fontSize:13.5, lineHeight:1.65, color:MUT }}>{n.text}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* JOIN US */}
+      <section id="join" style={{ padding:"52px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <div style={{ background:CARD, border:`1px solid ${BORDER}`, borderLeft:`4px solid ${R}`,
+            padding:"32px 38px", borderRadius:"0 4px 4px 0",
+            display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <div>
+              <div style={{ ...mono, fontSize:9.5, color:R, letterSpacing:"0.1em", marginBottom:8 }}>OPEN POSITIONS</div>
+              <h3 style={{ fontSize:20, fontWeight:700, marginBottom:5 }}>PhD Students — Fall 2026</h3>
+              <p style={{ fontSize:13.5, color:MUT }}>Fully-funded positions. ML, statistics, civil or systems engineering backgrounds welcome.</p>
+            </div>
+            {(()=>{
+              const [h,setH]=useState(false);
+              return <a href="mailto:ekin.ugurel@houston.edu" style={{ flexShrink:0, background:h?"#a80e26":R, color:"#fff", padding:"11px 24px", borderRadius:3, fontSize:13, fontWeight:600, marginLeft:32, whiteSpace:"nowrap", transition:"background .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>Contact Us →</a>;
+            })()}
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{ borderTop:`1px solid ${BORDER}`, background:CARD, padding:"26px 48px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+            <Logo color={R} size={17}/>
+            <span style={{ ...mono, fontSize:10, color:MUT }}>BMLS LAB · UNIVERSITY OF HOUSTON · ISE</span>
+          </div>
+          <span style={{ ...mono, fontSize:10, color:BORDER }}>© 2026</span>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+/* ══════════════════════════════════════════════
+   TWEAK PANEL
+══════════════════════════════════════════════ */
+const TweakPanel = ({ variant, setVariant }) => (
+  <div className="tweak-panel">
+    <h4>Tweaks</h4>
+    <div style={{ fontSize:11, color:"#aaa", marginBottom:8, fontFamily:"'DM Sans',sans-serif" }}>Design Variant</div>
+    {[
+      [1,"Academic Minimal","Warm serif · editorial · UH red"],
+      [2,"Bold Dark","Dark bg · dramatic · high-contrast"],
+      [3,"Systems Grid","Structured · technical · split hero"],
+    ].map(([v,name,desc])=>(
+      <button key={v} className={`tweak-btn ${variant===v?"active":""}`} onClick={()=>setVariant(v)}>
+        <div className="tweak-name">{name}</div>
+        <div className="tweak-desc">{desc}</div>
+      </button>
+    ))}
+  </div>
+);
+
+/* ══════════════════════════════════════════════
+   APP
+══════════════════════════════════════════════ */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "variant": 1
+}/*EDITMODE-END*/;
+
+function App() {
+  const [variant, setVariant] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('bmls_v')) ?? TWEAK_DEFAULTS.variant; }
+    catch { return TWEAK_DEFAULTS.variant; }
+  });
+  const [tweaksOn, setTweaksOn] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('bmls_v', JSON.stringify(variant));
+    window.parent.postMessage({ type:'__edit_mode_set_keys', edits:{ variant } }, '*');
+  }, [variant]);
+
+  useEffect(() => {
+    const handler = e => {
+      if (e.data?.type === '__activate_edit_mode')   setTweaksOn(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOn(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type:'__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  return (
+    <>
+      {variant === 1 && <V1/>}
+      {variant === 2 && <V2/>}
+      {variant === 3 && <V3/>}
+      {tweaksOn && <TweakPanel variant={variant} setVariant={setVariant}/>}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
