@@ -6,6 +6,9 @@
   <title>BMLS Lab — University of Houston</title>
   <meta name="ext-resource-dependency" content="uploads/IMG_3620.jpeg" data-resource-id="profilePhoto"/>
   <meta name="ext-resource-dependency" content="uploads/saba-sohrabi.jpg" data-resource-id="sabaPhoto"/>
+  <meta name="ext-resource-dependency" content="uploads/research-demand.svg" data-resource-id="figDemand"/>
+  <meta name="ext-resource-dependency" content="uploads/research-mobility.png" data-resource-id="figMobility"/>
+  <meta name="ext-resource-dependency" content="uploads/research-coevolution.png" data-resource-id="figCoevolution"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -86,24 +89,58 @@ const { useState, useEffect } = React;
 const RESEARCH = [
   {
     id:"01",
-    title:"Human–AI Coevolution in Travel",
-    sub:"Recommender Systems & Behavioral Impact",
-    desc:"Investigating how algorithmic recommendations reshape travel demand and how behavioral adaptation feeds back into system dynamics — closing the loop between AI deployment and human response.",
-    tags:["Recommender Systems","Travel Demand","Behavioral Modeling"],
+    title:"Innovations in Activity-Travel Demand Modeling",
+    sub:"Behaviorally grounded models of how people plan their days",
+    desc:"Activity-based and agent-based models of when, where, and how people travel, built to answer the questions planners actually face.",
+    body:[
+      "Cities are, in the end, the sum of millions of daily schedules. Someone drops a kid at school on the way to work, skips the gym when it rains, or starts working from home two days a week. These small decisions add up to the traffic, transit ridership, and land-use patterns that planners have to prepare for. We build activity-based and agent-based models that represent these decisions directly: which activities people take part in, when and where they do them, and how they get there.",
+      "Much of our work here is about making these models fit the world as it is now. Travel surveys are expensive and infrequent, while location data from phones is plentiful but messy. We draw on both, pairing choice models with machine learning so that simulated residents behave like real ones, and so that a model can tell an agency something useful about a new transit line, a shift to hybrid work, or a change in zoning.",
+    ],
+    image:"uploads/research-demand.svg", imageId:"figDemand", figWidth:"64%",
+    alt:"Illustration of simulated agents traveling between homes, offices, shops, and parks on a city street grid",
+    related:[
+      {"title": "Beat the Morning Rush: Survival analysis-informed DNNs with collaborative filtering to predict precise departure times", "venue": "IEEE Open Journal of Intelligent Transportation Systems", "year": "2025", "url": "https://ieeexplore.ieee.org/document/10897825"},
+      {"title": "COVID & telecommuting-induced changes in individual activity and travel patterns: Evidence from the Puget Sound Region", "venue": "Transport Policy", "year": "2025", "url": "https://www.sciencedirect.com/science/article/pii/S0967070X25003154"},
+      {"title": "Metropolitan Planning Organizations' Uses of and Needs for Big Data", "venue": "Transport Findings", "year": "2024", "url": "https://findingspress.org/article/127143-metropolitan-planning-organizations-uses-of-and-needs-for-big-data?auth_token=4-DxXNJb-JBO-Bp1SiJq"},
+    ],
+    tags:["Activity-Based Models","Agent-Based Simulation","Discrete Choice","Long-Range Planning"],
   },
   {
     id:"02",
-    title:"Reliable Mobility Representations",
-    sub:"Sparse, Biased & Partially-Observed Data",
-    desc:"Developing representation learning frameworks that extract robust, generalizable structure from mobility datasets afflicted by missingness, sampling bias, and limited observability.",
-    tags:["Representation Learning","Kernel Methods","Mobility Data"],
+    title:"New Methods in Mobility Data Science",
+    sub:"Reliable insight from sparse, biased, and partially observed data",
+    desc:"Methods that fill gaps, correct biases, and quantify uncertainty in passively collected mobility data.",
+    body:[
+      "Phones record where we are only when an app happens to ask, so the location data that transportation research increasingly relies on comes with large gaps. The figure shows what this looks like for one person's day. The true sequence of home, work, and an evening at the gym (a) would appear as a dense trail of points if the phone reported continuously (b). In practice we usually see something closer to (c): part of the morning commute is missing, most of the workday is blank, and the gym visit never shows up at all. An analysis that treats (c) as the full story will undercount trips and misjudge when people travel.",
+      "In our paper on correcting missingness in passively generated mobile data with multi-task Gaussian processes, we fill these gaps by learning from patterns shared across days and across people, and we report how uncertain each filled-in point is. Building on this, we develop methods for generating realistic synthetic trajectories, for inferring who is behind a trace, and for measuring whose movements these datasets capture well and whose they miss.",
+    ],
+    image:"uploads/research-mobility.png", imageId:"figMobility",
+    alt:"Three space-time diagrams comparing a person's true day (home, work, gym), a fully observed GPS trajectory, and a sparse trajectory with missed stops",
+    related:[
+      {"title": "Correcting Missingness in Passively-Generated Mobile Data with Multi-Task Gaussian Processes", "venue": "Transportation Research Part C: Emerging Technologies", "year": "2024", "url": "https://www.sciencedirect.com/science/article/pii/S0968090X24000445"},
+      {"title": "Self-training for Sociodemographic Inference from Mobility Data", "venue": "Preprint", "year": "", "url": ""},
+      {"title": "Learning to generate synthetic human mobility data: A physics-regularized Gaussian process approach based on multiple kernel learning", "venue": "Transportation Research Part B: Methodological", "year": "2024", "url": "https://www.sciencedirect.com/science/article/abs/pii/S0191261524001887"},
+      {"title": "Exploring biases in travel behavior patterns in big passively-generated mobile data from 11 U.S. cities", "venue": "Journal of Transport Geography", "year": "2025", "url": "https://www.sciencedirect.com/science/article/abs/pii/S096669232400317X"},
+    ],
+    tags:["Gaussian Processes","Missing Data","Synthetic Data","Bias & Fairness"],
   },
   {
     id:"03",
-    title:"Uncertainty-Aware ML for Demand",
-    sub:"Robust Methods for Endogenous Environments",
-    desc:"Building probabilistic ML methods that quantify and propagate uncertainty through endogenous demand systems, where model outputs actively shape the very phenomena being modeled.",
-    tags:["Probabilistic Modeling","Uncertainty Quantification","Robustness"],
+    title:"Human–AI Coevolution and its Urban Impacts",
+    sub:"How AI recommendations and human behavior shape each other",
+    desc:"The feedback loop between AI recommender systems and human travel decisions, and what it means for cities.",
+    body:[
+      "Many of the decisions we study are no longer made by people alone. A navigation app picks the route, a search result suggests the restaurant, and more and more people simply ask a chatbot where to go. These systems shape which options people see and nudge which ones they choose. They then learn from those choices to make the next round of recommendations, and over time people and algorithms adapt to each other.",
+      "We want to understand what this loop does to individuals and to cities. Does it make trips faster but neighborhoods more alike? Do people come to trust recommendations more than they should? Who benefits, and who gets left out? We approach these questions with surveys, behavioral experiments, and agent-based simulations. Our long-term aim is to inform the design of recommender systems that serve people's wellbeing.",
+    ],
+    image:"uploads/research-coevolution.png", imageId:"figCoevolution",
+    alt:"Diagram of an AI recommender system shaping exposure and influencing choice, with human actions updating the AI, evaluated on utility, diversity, and agency",
+    related:[
+      {"title": "Towards welfare-oriented recommendations in activity-travel behavior", "venue": "To appear in Proceedings of the 20th ACM Conference on Recommender Systems (RecSys '26)", "venueUrl": "https://dl.acm.org/doi/proceedings/10.1145/3773078", "year": "2026", "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Xp6PAL0AAAAJ&sortby=pubdate&citation_for_view=Xp6PAL0AAAAJ:hqOjcs7Dif8C"},
+      {"title": "AI-Assisted Digital Platforms Reshape Activity-Travel Behavior", "venue": "Preprint", "year": "", "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Xp6PAL0AAAAJ&sortby=pubdate&citation_for_view=Xp6PAL0AAAAJ:Se3iqnhoufwC"},
+      {"title": "GeoRecSim: A Multi-Agent Testbed for Recommender System Design", "venue": "GeoSim '26 (9th ACM SIGSPATIAL International Workshop on GeoSpatial Simulation), Riverside, CA", "year": "2026", "url": ""},
+    ],
+    tags:["Recommender Systems","Trust in AI","Feedback Loops","Agency"],
   },
 ];
 
@@ -152,7 +189,7 @@ const PUBLICATIONS = [
     authors:"Ekin Uğurel, Gaoang Wang",
     venue:"IEEE Open Journal of Intelligent Transportation Systems",
     links:{ pdf:"https://ieeexplore.ieee.org/document/10897825" },
-    thrust:"03",
+    thrust:"01",
   },
   {
     year:"2025",
@@ -160,7 +197,7 @@ const PUBLICATIONS = [
     authors:"Cynthia Chen, Ryan Wang, Prateek Bansal, Lyra Chen, Ekin Uğurel, Yuteng Zhang, Xinhua Wu",
     venue:"Transportation Research Part C: Emerging Technologies",
     links:{ pdf:"https://www.sciencedirect.com/science/article/pii/S0968090X25004206" },
-    thrust:"02",
+    thrust:"01",
   },
   {
     year:"2025",
@@ -192,7 +229,7 @@ const PUBLICATIONS = [
     authors:"Ekin Uğurel, Xinhua Wu, Ryan Wang, Brian H. Lee, Cynthia Chen",
     venue:"Transport Findings",
     links:{ pdf:"https://findingspress.org/article/127143-metropolitan-planning-organizations-uses-of-and-needs-for-big-data?auth_token=4-DxXNJb-JBO-Bp1SiJq" },
-    thrust:"02",
+    thrust:"01",
   },
   {
     year:"2024",
@@ -232,7 +269,7 @@ const PUBLICATIONS = [
     authors:"Ekin Uğurel",
     venue:"Preprint",
     links:{ pdf:"https://arxiv.org/abs/2306.11772" },
-    thrust:"03",
+    thrust:"01",
   },
 ];
 
@@ -268,6 +305,31 @@ const PhotoBox = ({ style={} }) => (
     </div>
   </div>
 );
+
+/* Research figure: click to view full size */
+const ResearchFigure = ({ src, alt, width="100%" }) => {
+  const [open,setOpen]=useState(false);
+  useEffect(()=>{
+    if(!open) return;
+    const onKey=e=>{ if(e.key==="Escape") setOpen(false); };
+    window.addEventListener("keydown",onKey);
+    return ()=>window.removeEventListener("keydown",onKey);
+  },[open]);
+  return (
+    <>
+      <button onClick={()=>setOpen(true)} aria-label={`Enlarge figure: ${alt}`}
+        style={{ display:"block", width, margin:"0 auto", padding:"20px", background:"#fff", border:"1px solid #E2DDD4", borderRadius:6, cursor:"zoom-in" }}>
+        <img src={src} alt={alt} style={{ width:"100%", display:"block" }}/>
+      </button>
+      {open && (
+        <div onClick={()=>setOpen(false)} style={{ position:"fixed", inset:0, background:"rgba(26,23,18,0.82)", zIndex:10000,
+          display:"flex", alignItems:"center", justifyContent:"center", padding:"4vw", cursor:"zoom-out" }}>
+          <img src={src} alt={alt} style={{ maxWidth:"100%", maxHeight:"100%", background:"#fff", padding:24, borderRadius:6 }}/>
+        </div>
+      )}
+    </>
+  );
+};
 
 /* ══════════════════════════════════════════════
    VARIANT 1 — ACADEMIC MINIMAL
@@ -341,30 +403,52 @@ const V1 = () => {
       </section>
 
       {/* RESEARCH */}
-      <section id="research" style={{ background:TAN, padding:"80px 48px" }}>
+      <section id="research" style={{ background:TAN, padding:"88px 48px" }}>
+        <style>{`
+          .rd-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px; align-items:start; }
+          .rd-row.flip .rd-fig { order:2; }
+          @media (max-width: 860px) {
+            .rd-row { grid-template-columns:1fr; gap:28px; }
+            .rd-row.flip .rd-fig { order:0; }
+          }
+        `}</style>
         <div style={{ maxWidth:1100, margin:"0 auto" }}>
-          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
-            <h2 style={{ ...serif, fontSize:36, color:INK }}>Research Thrusts</h2>
+          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:24 }}>
+            <h2 style={{ ...serif, fontSize:36, color:INK }}>Research</h2>
             <div style={{ flex:1, height:1, background:LINE }}/>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:22 }}>
-            {RESEARCH.map((r,i)=>{
-              const [hov,setHov]=useState(false);
-              return (
-                <div key={r.id} style={{ background:"#fff", padding:"32px 28px", borderRadius:5, borderTop:`3px solid ${R}`,
-                  boxShadow: hov?"0 8px 28px rgba(0,0,0,0.07)":"0 2px 8px rgba(0,0,0,0.03)", transition:"box-shadow .2s" }}
-                  onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
-                  <div style={{ fontSize:11, fontWeight:700, color:R, letterSpacing:"0.1em", marginBottom:12 }}>{r.id}</div>
-                  <h3 style={{ ...serif, fontSize:19, color:INK, lineHeight:1.3, marginBottom:6 }}>{r.title}</h3>
-                  <div style={{ fontSize:12, color:MUT, fontStyle:"italic", marginBottom:14 }}>{r.sub}</div>
-                  <p style={{ fontSize:13.5, lineHeight:1.65, color:"#4A4238" }}>{r.desc}</p>
-                  <div style={{ display:"flex", flexWrap:"wrap", gap:6, marginTop:18 }}>
-                    {r.tags.map(t=><span key={t} style={{ fontSize:10.5, padding:"3px 10px", background:TAN, borderRadius:100, color:MUT }}>{t}</span>)}
-                  </div>
+          <p style={{ fontSize:17, lineHeight:1.75, color:"#4A4238", maxWidth:780, marginBottom:72 }}>
+            We study how people make everyday travel decisions, and how those decisions are changing as data and AI become part of daily life. Our work follows three connected directions.
+          </p>
+          {RESEARCH.map((r,i)=>{
+            const src = window.__resources?.[r.imageId] || r.image;
+            return (
+              <article key={r.id} className={`rd-row${i%2===1?" flip":""}`} style={{ marginBottom: i===RESEARCH.length-1?0:96 }}>
+                <div className="rd-fig">
+                  <ResearchFigure src={src} alt={r.alt} width={r.figWidth||"100%"}/>
+                  <h4 style={{ fontSize:16, fontWeight:600, color:INK, marginTop:32, marginBottom:4 }}>Related work</h4>
+                  <ul style={{ listStyle:"none" }}>
+                    {r.related.map(w=>(
+                      <li key={w.title} style={{ fontSize:16, lineHeight:1.6, padding:"12px 0", borderBottom:`1px solid ${LINE}` }}>
+                        {w.url
+                          ? <a href={w.url} target="_blank" rel="noreferrer" style={{ color:INK, textDecoration:"underline", textDecorationColor:LINE, textUnderlineOffset:3 }}>{w.title}</a>
+                          : <span style={{ color:INK }}>{w.title}</span>}
+                        {(w.venue||w.year) && <span style={{ color:MUT }}>{". "}{w.venueUrl
+                          ? <a href={w.venueUrl} target="_blank" rel="noreferrer" style={{ color:MUT, textDecoration:"underline", textDecorationColor:LINE, textUnderlineOffset:3 }}>{w.venue}</a>
+                          : w.venue}{w.venue&&w.year?", ":""}{w.year}</span>}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              );
-            })}
-          </div>
+                <div>
+                  <h3 style={{ ...serif, fontSize:30, color:INK, lineHeight:1.2, marginBottom:20 }}>{r.title}</h3>
+                  {r.body.map((para,k)=>(
+                    <p key={k} style={{ fontSize:16, lineHeight:1.8, color:"#4A4238", marginBottom:18 }}>{para}</p>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
