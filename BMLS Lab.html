@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BMLS Lab — University of Houston</title>
   <meta name="ext-resource-dependency" content="uploads/IMG_3620.jpeg" data-resource-id="profilePhoto"/>
+  <meta name="ext-resource-dependency" content="uploads/saba-sohrabi.jpg" data-resource-id="sabaPhoto"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -103,6 +104,19 @@ const RESEARCH = [
     sub:"Robust Methods for Endogenous Environments",
     desc:"Building probabilistic ML methods that quantify and propagate uncertainty through endogenous demand systems, where model outputs actively shape the very phenomena being modeled.",
     tags:["Probabilistic Modeling","Uncertainty Quantification","Robustness"],
+  },
+];
+
+const STUDENTS = [
+  {
+    name:"Saba Sohrabi",
+    role:"PhD Student, Industrial and Systems Engineering",
+    photo:"uploads/saba-sohrabi.jpg",
+    photoId:"sabaPhoto",
+    bio:[
+      "Saba Sohrabi is a Ph.D. student in Industrial and Systems Engineering at the University of Houston, advised by Dr. Ekin Uğurel. She received her B.S. in Civil Engineering from Sharif University of Technology and her M.S. in Civil Engineering from Stony Brook University.",
+      "Her research focuses on human decision making and the role of emerging technologies, particularly artificial intelligence, in everyday life. She is interested in how people develop trust in AI recommendations, how these recommendations influence travel behavior and daily activities, and how human centered systems can improve mobility and accessibility. Her background in transportation engineering and spatial analysis provides a foundation for exploring these questions. Outside the lab, she enjoys going to the gym.",
+    ],
   },
 ];
 
@@ -388,6 +402,23 @@ const V1 = () => {
               })}
             </div>
           </div>
+        </div>
+
+        {/* PHD STUDENTS */}
+        <div style={{ maxWidth:1100, margin:"64px auto 0", paddingTop:56, borderTop:`1px solid ${LINE}` }}>
+          <div style={{ fontSize:11, letterSpacing:"0.12em", textTransform:"uppercase", color:R, marginBottom:32, fontWeight:500 }}>PhD Students</div>
+          {STUDENTS.map(st=>(
+            <div key={st.name} style={{ display:"grid", gridTemplateColumns:"220px 1fr", gap:64, alignItems:"start", marginBottom:48 }}>
+              <img src={window.__resources?.[st.photoId] || st.photo} alt={st.name} style={{ width:"100%", aspectRatio:"3/4", objectFit:"cover", objectPosition:"center top", borderRadius:4, border:`1px solid ${LINE}`, display:"block" }}/>
+              <div>
+                <h3 style={{ ...serif, fontSize:30, color:INK, marginBottom:6 }}>{st.name}</h3>
+                <div style={{ fontSize:14.5, color:MUT, marginBottom:20, lineHeight:1.6 }}>{st.role}</div>
+                {st.bio.map((para,i)=>(
+                  <p key={i} style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:16 }}>{para}</p>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
