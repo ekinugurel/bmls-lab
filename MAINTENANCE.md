@@ -11,6 +11,8 @@ BMLS Lab.html       ← main source file (edit this)
 index.html          ← self-contained export for GitHub Pages (regenerate after edits)
 uploads/
   IMG_3620.jpeg     ← your profile photo
+files/
+  CV_EU.pdf         ← your CV (linked from the People section)
 MAINTENANCE.md      ← this file
 ```
 
@@ -111,20 +113,20 @@ Replace `uploads/IMG_3620.jpeg` with a new file (keep the same filename, or upda
 
 ### 5. Updating Links (CV, Scholar, GitHub, Email)
 
-In the V1 PI Bio section, find:
+In the V1 PI Bio section, find the link list under the bio paragraphs:
 
 ```jsx
-{["CV","Google Scholar","GitHub","Email"].map(l => {
+{[
+  ["CV","files/CV_EU.pdf",false],
+  ["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao",false],
+  ["GitHub","https://github.com/ekinugurel",false],
+  ["Email","mailto:eugurel@Central.UH.EDU",false],
+].map(([l,href,isReq])=>{
 ```
 
-These are currently `href="#"` placeholders. Replace each `href` individually by switching from `.map` to explicit anchors:
+Each entry is `[label, href, isReq]`; set `isReq` to `true` to show a small "(on request)" tag next to a link.
 
-```jsx
-<a href="https://your-cv-link.pdf" ...>CV</a>
-<a href="https://scholar.google.com/citations?user=YOURCODE" ...>Google Scholar</a>
-<a href="https://github.com/ekinugurel" ...>GitHub</a>
-<a href="mailto:ekin.ugurel@houston.edu" ...>Email</a>
-```
+**Updating your CV:** replace `files/CV_EU.pdf` with the new PDF (same filename), then commit and push. No rebuild of `index.html` is needed for this — the PDF is served as a separate file, not embedded in the bundle. Your personal site (`ekinugurel.github.io`) keeps its own copy at `files/CV_EU.pdf`, so update both.
 
 ---
 
@@ -244,6 +246,7 @@ Then configure your DNS per GitHub's documentation.
 | News items | `const NEWS = [...]` |
 | Research thrusts | `const RESEARCH = [...]` |
 | Profile photo | `<img src=...>` inside V1 PI Bio section |
+| CV PDF | `files/CV_EU.pdf` (linked from the V1 PI Bio link list) |
 | Bio text | Two `<p>` tags inside V1 PI Bio section |
 | Nav links | `["Research","People","News","Join Us"].map(...)` inside V1 Nav |
 | Recruiting CTA text | V1 `{/* JOIN US */}` section |

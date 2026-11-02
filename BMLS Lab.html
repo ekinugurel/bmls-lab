@@ -473,10 +473,10 @@ const V1 = () => {
             </p>
             <div style={{ display:"flex", gap:22, flexWrap:"wrap" }}>
               {[
+                ["CV","files/CV_EU.pdf",false],
                 ["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao",false],
                 ["GitHub","https://github.com/ekinugurel",false],
                 ["Email","mailto:eugurel@Central.UH.EDU",false],
-                ["CV","mailto:eugurel@Central.UH.EDU?subject=CV%20Request",true],
               ].map(([l,href,isReq])=>{
                 const [hov,setHov]=useState(false);
                 return (
@@ -718,7 +718,7 @@ const V2 = () => {
               Research bridges theoretical ML and practical challenges in long-range transportation planning, travel behavior modeling, and supply chain logistics.
             </p>
             <div style={{ display:"flex", gap:20 }}>
-              {[["CV","mailto:eugurel@Central.UH.EDU?subject=CV%20Request"],["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao"],["GitHub","https://github.com/ekinugurel"],["Email","mailto:eugurel@Central.UH.EDU"]].map(([l,href])=>{
+              {[["CV","files/CV_EU.pdf"],["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao"],["GitHub","https://github.com/ekinugurel"],["Email","mailto:eugurel@Central.UH.EDU"]].map(([l,href])=>{
                 const [h,setH]=useState(false);
                 return <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer" style={{ fontSize:13, color:h?TEXT:MUT, borderBottom:`1px solid ${h?MUT:BORDER}`, paddingBottom:3, transition:"all .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{l}</a>;
               })}
@@ -934,7 +934,7 @@ const V3 = () => {
               Dr. Uğurel develops ML frameworks for modeling decision-making in transportation and urban systems, bridging the gap between theoretical ML and practical challenges in long-range planning and travel behavior.
             </p>
             <div style={{ display:"flex", gap:20 }}>
-              {[["CV","mailto:eugurel@Central.UH.EDU?subject=CV%20Request"],["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao"],["GitHub","https://github.com/ekinugurel"],["Email","mailto:eugurel@Central.UH.EDU"]].map(([l,href])=>{
+              {[["CV","files/CV_EU.pdf"],["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao"],["GitHub","https://github.com/ekinugurel"],["Email","mailto:eugurel@Central.UH.EDU"]].map(([l,href])=>{
                 const [h,setH]=useState(false);
                 return <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer" style={{ fontSize:13, color:h?R:BLUE, borderBottom:`1px solid ${h?R:"transparent"}`, paddingBottom:2, transition:"all .15s" }} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}>{l}</a>;
               })}
