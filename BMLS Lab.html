@@ -158,6 +158,7 @@ const STUDENTS = [
 ];
 
 const NEWS = [
+  { date:"Nov 2026", text:<>Our paper led by <a href="https://scholar.google.com/citations?user=cUALGg0AAAAJ&hl=en&oi=sra" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>Nahush Shrivatsa</a>, &ldquo;<a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=cUALGg0AAAAJ&citation_for_view=cUALGg0AAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>GeoRecSim: A Multi-Agent Testbed for Recommender System Design</a>&rdquo;, received the Best Paper Runner-Up award at the 9th ACM SIGSPATIAL Workshop on Geospatial Simulation (GeoSim 2026). [<a href="https://dl.acm.org/doi/abs/10.1145/3849737.3849837" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>pdf</a>]</>, link:null },
   { date:"Aug 2026", text:<>Our paper led by <a href="https://scholar.google.com/citations?user=wu8mlCQAAAAJ&hl=en" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>Yuteng Zhang</a>, &ldquo;Causal-Flow SCM: Calibrated Forecasting and Counterfactual Prioritization for Airport Delay Propagation&rdquo; was accepted to the <a href="https://sigspatial2026.sigspatial.org/" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>2026 ACM SIGSPATIAL Conference (main track)</a> (<strong>23% acceptance rate</strong>). See you in Riverside! (proceedings to follow)</>, link:null },
   { date:"Jul 2026", text:<>Our paper, &ldquo;Towards welfare-oriented recommendations in activity-travel behavior&rdquo; was accepted to the <a href="https://recsys.acm.org/recsys26/" target="_blank" rel="noreferrer" style={{ color:"inherit", textDecoration:"underline" }}>2026 ACM Conference on Recommender Systems</a> (<strong>18% acceptance rate</strong>). See you in Minneapolis! (proceedings to follow)</>, link:null },
   { date:"Jul 2026", text:'New preprint out: "AI-Assisted Digital Platforms Reshape Activity-Travel Behavior"', link:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7080958" },
@@ -516,7 +517,7 @@ const V1 = () => {
             <h2 style={{ ...serif, fontSize:36, color:INK }}>News</h2>
             <div style={{ flex:1, height:1, background:LINE }}/>
           </div>
-          {NEWS.slice(0,6).map((n,i)=>(
+          {NEWS.slice(0,10).map((n,i)=>(
             <div key={i} style={{ display:"grid", gridTemplateColumns:"100px 1fr", gap:32, padding:"18px 0", borderBottom:`1px solid ${LINE}` }}>
               <div style={{ fontSize:12, fontWeight:600, color:R, paddingTop:2 }}>{n.date}</div>
               <div style={{ fontSize:14, lineHeight:1.68, color:"#4A4238" }}>
