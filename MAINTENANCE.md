@@ -7,22 +7,31 @@ This document explains how to update and extend the BMLS Lab website (`BMLS Lab.
 ## File Structure
 
 ```
-BMLS Lab.html       ← main source file (edit this)
-index.html          ← self-contained export for GitHub Pages (regenerate after edits)
+BMLS Lab.html        ← main source file (edit this)
+index.html           ← self-contained export for GitHub Pages (regenerate after edits)
+build_index.py       ← regenerates index.html from BMLS Lab.html
+fonts/               ← Source Serif 4 + Source Sans 3 (self-hosted, SIL Open Font License)
 uploads/
-  IMG_3620.jpeg     ← your profile photo
+  IMG_3620.jpeg      ← your profile photo (embedded in index.html; not in the repo)
+  saba-sohrabi.jpg   ← student photo
+  research-*.png/svg ← research figures
+  bmls-fork-v2.png         ← lab icon with "BMLS" wordmark (original; used for link previews)
+  bmls-fork-v2-small.png   ← lab icon, heavy strokes (original; source of the favicons)
+  bmls-mark.png            ← the mark alone, transparent, heavy strokes (header, footer)
+  bmls-mark-fine.png       ← the mark alone, transparent, fine strokes (homepage hero)
+  favicon-32.png, icon-192.png, apple-touch-icon.png  ← browser-tab and home-screen icons
 files/
-  CV_EU.pdf         ← your CV (linked from the People section)
-MAINTENANCE.md      ← this file
+  CV_EU.pdf          ← your CV (linked from the People section)
+MAINTENANCE.md       ← this file
 ```
 
 ---
 
 ## How the Site Works
 
-The site is a single HTML file using **React** (via CDN) with **Babel** for JSX. All content lives inside `<script type="text/babel">` at the bottom of `BMLS Lab.html`. There are no build tools, no npm, no config files.
+The site is a single HTML file using **React** (via CDN) with **Babel** for JSX. All content lives inside `<script type="text/babel">` at the bottom of `BMLS Lab.html`. All styling for the live design lives in the `<style>` block in `<head>`, under the comment `/* ── V1 styles ── */`.
 
-Three design variants (V1, V2, V3) are defined as React components. You selected **V1 (Academic Minimal)** — this is the one that renders by default.
+Three design variants (V1, V2, V3) are defined as React components. **V1** is the one the site shows. V2 and V3 are older experiments that are no longer styled for the current fonts; you can ignore them.
 
 ---
 
@@ -32,70 +41,47 @@ Open `BMLS Lab.html` in any text editor and find the data arrays near the top of
 
 ### 1. Adding a News Item
 
-Find the `NEWS` array (~line 60):
+Find the `NEWS` array:
 
 ```js
 const NEWS = [
-  { date:"Mar 2026", text:'Your news item text here.' },
+  { date:"Nov 2026", text:'Your news item text here.', link:null },
   // ... existing items
 ];
 ```
 
-Add a new object at the **top** of the array (newest first):
-
-```js
-{ date:"Sep 2026", text:'New paper: "Your Title" — Journal Name.' },
-```
+Add a new object at the **top** of the array (newest first). Use `link:"https://…"` to make the whole item a link, or write the text as JSX (`text:<>… <a href="…" target="_blank" rel="noreferrer">…</a> …</>`) to link only part of it. The News section shows the 10 most recent items (`NEWS.slice(0,10)` inside V1).
 
 ---
 
 ### 2. Adding / Editing a Research Thrust
 
-Find the `RESEARCH` array (~line 40):
-
-```js
-const RESEARCH = [
-  {
-    id:"01",
-    title:"Human–AI Coevolution in Travel",
-    sub:"Recommender Systems & Behavioral Impact",
-    desc:"Full description paragraph here.",
-    tags:["Tag One","Tag Two","Tag Three"],
-  },
-  // ...
-];
-```
-
-- **Edit** an existing entry by changing its fields.
-- **Add** a new thrust by appending a new object (`id:"04"`, etc.). The grid will expand automatically — note that 3 columns works best; for 4+, consider changing the layout to `gridTemplateColumns:"repeat(2,1fr)"`.
+Find the `RESEARCH` array. Each thrust has a `title`, `body` (list of paragraphs), a figure (`image`, `imageId`, `alt`), and `related` work. Figures listed in a `<meta name="ext-resource-dependency" …>` tag at the top of the file get embedded into `index.html`; add one for any new figure.
 
 ---
 
-### 3. Updating Your Bio
+### 3. Publications
 
-Find the PI Bio section inside the `V1` component. Look for the text starting with `Dr. Uğurel earned her PhD`:
-
-```jsx
-<p style={{ ... }}>
-  Dr. Uğurel earned her PhD in Transportation Engineering...
-</p>
-<p style={{ ... }}>
-  Her work bridges theoretical ML and practical challenges...
-</p>
-```
-
-Edit the text directly. The title/affiliation line is just above:
-
-```jsx
-<div style={{ fontSize:14.5, color:MUT, marginBottom:24 }}>
-  Assistant Professor, Industrial and Systems Engineering<br/>
-  University of Houston
-</div>
-```
+Find the `PUBLICATIONS` array. Entries are grouped by `year` automatically, in the order they appear. `Ekin Uğurel` is bolded automatically in author lists.
 
 ---
 
-### 4. Updating Your Photo
+### 4. Updating Your Bio
+
+In the `V1` component, find the comment `{/* PEOPLE — PI BIO */}`. The title/affiliation line and the three bio paragraphs are plain text:
+
+```jsx
+<p className="v1-affil">Assistant Professor, Industrial and Systems Engineering<br/>University of Houston</p>
+<p>
+  Ekin Uğurel is an Assistant Professor in …
+</p>
+```
+
+Students are in the `STUDENTS` array near the top of the file.
+
+---
+
+### 5. Updating Your Photo
 
 Replace `uploads/IMG_3620.jpeg` with a new file (keep the same filename, or update the path in two places):
 
@@ -103,17 +89,13 @@ Replace `uploads/IMG_3620.jpeg` with a new file (keep the same filename, or upda
    ```html
    <meta name="ext-resource-dependency" content="uploads/YOUR_NEW_PHOTO.jpeg" data-resource-id="profilePhoto"/>
    ```
-
-2. The `<img>` tag inside V1's PI Bio section:
-   ```jsx
-   <img src={window.__resources?.profilePhoto || "uploads/YOUR_NEW_PHOTO.jpeg"} .../>
-   ```
+2. The `<img className="v1-photo" …>` tag in the PI section of `V1`.
 
 ---
 
-### 5. Updating Links (CV, Scholar, GitHub, Email)
+### 6. Updating Links (CV, Scholar, GitHub, Email)
 
-In the V1 PI Bio section, find the link list under the bio paragraphs:
+In the PI section of `V1`, find the link list under the bio paragraphs:
 
 ```jsx
 {[
@@ -121,95 +103,52 @@ In the V1 PI Bio section, find the link list under the bio paragraphs:
   ["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao",false],
   ["GitHub","https://github.com/ekinugurel",false],
   ["Email","mailto:eugurel@Central.UH.EDU",false],
-].map(([l,href,isReq])=>{
+].map(([l,href,isReq])=>(
 ```
 
-Each entry is `[label, href, isReq]`; set `isReq` to `true` to show a small "(on request)" tag next to a link.
+Each entry is `[label, href, isReq]`; set `isReq` to `true` to show a small "(on request)" note next to a link.
 
 **Updating your CV:** replace `files/CV_EU.pdf` with the new PDF (same filename), then commit and push. No rebuild of `index.html` is needed for this — the PDF is served as a separate file, not embedded in the bundle. Your personal site (`ekinugurel.github.io`) keeps its own copy at `files/CV_EU.pdf`, so update both.
 
 ---
 
-### 6. Updating the Recruiting / Join Us Section
+### 7. Updating the Join the Lab Section
 
-Find the `Join Us` section comment inside V1. Edit the heading and body text:
-
-```jsx
-<div style={{ ...serif, fontSize:22, ... }}>Prospective PhD Students</div>
-<div style={{ fontSize:14, ... }}>
-  Fully-funded positions for Fall 2026. ...
-</div>
-```
-
-Update the mailto link:
-```jsx
-<Btn primary style={{ ... }}>Get in Touch →</Btn>
-```
-Change the `href` on the `<Btn>` component's `<a>` tag to `mailto:ekin.ugurel@houston.edu`.
+Find `{/* JOIN US */}` in `V1`. Each opening is a `{ role:"…", detail:"…" }` object; the contact sentence and email link are just below.
 
 ---
 
 ## Adding a New Section
 
-To add a new full-width section (e.g., Publications), insert it inside the `V1` component's return statement between existing `<section>` blocks. Here's a template:
+Inside `V1`'s `<main>`, add a `<Section>` between the existing ones:
 
 ```jsx
-{/* PUBLICATIONS */}
-<section style={{ padding:"80px 48px" }}>
-  <div style={{ maxWidth:1100, margin:"0 auto" }}>
-    <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
-      <h2 style={{ ...serif, fontSize:36, color:INK }}>Publications</h2>
-      <div style={{ flex:1, height:1, background:LINE }}/>
-    </div>
-    {/* your content here */}
-  </div>
-</section>
+<Section id="teaching" title="Teaching" intro="Optional one-paragraph introduction.">
+  {/* your content here */}
+</Section>
 ```
 
-Use alternating backgrounds for visual rhythm:
-- White sections: `background` omitted (inherits `#FAFAF8`)
-- Tan/off-white sections: `background:TAN` (i.e. `#F3F0EB`)
+Then add it to the header navigation: find `const NAV = [...]` at the top of `V1` and add `["Teaching","#teaching"]`.
 
 ---
 
-## Adding a Navigation Link
+## Logo and Icons
 
-Find the nav links array inside V1:
-
-```jsx
-{["Research","People","News","Join Us"].map(l=><NavLink key={l} label={l}/>)}
-```
-
-Add a new label:
-
-```jsx
-{["Research","People","Publications","News","Join Us"].map(...)}
-```
-
-To make it scroll to a section, give your section an `id`:
-
-```jsx
-<section id="publications" style={{ ... }}>
-```
-
-Then add `href="#publications"` to the NavLink component (currently the component always sets `href="#"` — update the `NavLink` function to accept an `href` prop if needed).
+- The header and footer use `uploads/bmls-mark.png`; the homepage hero uses `uploads/bmls-mark-fine.png`. Both are transparent crops of your original icons, embedded into `index.html` via the `markBold` / `markFine` `<meta name="ext-resource-dependency">` tags.
+- Browser-tab icons, the iPhone home-screen icon, and the link-preview image are set in the `<!-- shell-head:start -->` block in `<head>`.
+- To change the logo, replace those PNG files (keep the names) and rebuild.
 
 ---
 
 ## Deploying to GitHub Pages
 
-### First deploy
+After each update:
 
-1. Create a GitHub repository (e.g. `bmls-lab`)
-2. Go to **Settings → Pages** → Source: **Deploy from branch** → Branch: `main` → Folder: `/ (root)`
-3. In your project, add `index.html` to the repo root
-4. Push — GitHub will serve it at `https://yourusername.github.io/bmls-lab/`
+1. Edit `BMLS Lab.html` as described above.
+2. Run `python3 build_index.py` in this folder. It copies the app code, the whole `<head>` (fonts, styles, icons, link-preview tags) and the embedded images into `index.html`.
+3. Commit and push `index.html`, `BMLS Lab.html`, and anything new in `uploads/`, `fonts/`, or `files/`.
 
-### After each update
-
-1. Edit `BMLS Lab.html` as described above
-2. Regenerate `index.html` (the self-contained export) — ask the assistant to re-export, or re-run the bundler
-3. Commit and push `index.html`
+Files that `index.html` links to by URL (everything in `fonts/`, the favicons, `files/CV_EU.pdf`) must be in the repo — they are not embedded.
 
 ### Custom domain
 
@@ -223,19 +162,24 @@ Then configure your DNS per GitHub's documentation.
 
 ## Color & Typography Reference
 
-| Token | Value | Used for |
-|-------|-------|----------|
-| `R` (UH Red) | `#C8102E` | Accents, links on hover, borders |
-| `INK` | `#1A1712` | Primary text, headings |
-| `MUT` | `#7A6F63` | Secondary text, nav links |
-| `BG` | `#FAFAF8` | Page background |
-| `TAN` | `#F3F0EB` | Alternating section background |
-| `LINE` | `#E2DDD4` | Dividers, card borders |
+Colors are CSS variables on `.v1` in the `/* ── V1 styles ── */` block; they come from the lab mark.
 
-| Role | Font | Weight |
-|------|------|--------|
-| Display headings | DM Serif Display | 400 (regular) |
-| Body, nav, UI | DM Sans | 300–600 |
+| Variable | Value | Used for |
+|----------|-------|----------|
+| `--ink` | `#1C1B1A` | Headings, the mark's black, primary button |
+| `--text` | `#33302C` | Body text |
+| `--muted` | `#6B655D` | Dates, labels, author lists |
+| `--rule` | `#E5E1D9` | Dividers |
+| `--coral` | `#E0605A` | The mark's red; link underlines |
+| `--coral-ink` | `#B3443D` | Small red text (PDF/Code links, "Principal investigator") — darker so it stays readable |
+| `--paper` | `#FFFFFF` | Page background |
+
+| Role | Font | Notes |
+|------|------|-------|
+| Headings and body text | Source Serif 4 | Variable font; picks a display cut automatically at large sizes |
+| Navigation, dates, labels, author lists | Source Sans 3 | |
+
+Both fonts are self-hosted in `fonts/` (no Google Fonts request) and include Turkish characters such as ğ.
 
 ---
 
@@ -245,10 +189,12 @@ Then configure your DNS per GitHub's documentation.
 |---------|-----------------|
 | News items | `const NEWS = [...]` |
 | Research thrusts | `const RESEARCH = [...]` |
-| Profile photo | `<img src=...>` inside V1 PI Bio section |
-| CV PDF | `files/CV_EU.pdf` (linked from the V1 PI Bio link list) |
-| Bio text | Two `<p>` tags inside V1 PI Bio section |
-| Nav links | `["Research","People","News","Join Us"].map(...)` inside V1 Nav |
-| Recruiting CTA text | V1 `{/* JOIN US */}` section |
-| Lab tagline (hero) | `<p className="fu2" ...>` inside V1 Hero section |
-| Footer text | V1 `{/* FOOTER */}` section |
+| Publications | `const PUBLICATIONS = [...]` |
+| Students | `const STUDENTS = [...]` |
+| Header navigation | `const NAV = [...]` at the top of `V1` |
+| Homepage title, tagline, focus areas | `{/* HERO */}` and `const FOCUS = [...]` in `V1` |
+| Bio text, profile photo, links | `{/* PEOPLE — PI BIO */}` in `V1` |
+| Recruiting text | `{/* JOIN US */}` in `V1` |
+| Footer text | `{/* FOOTER */}` in `V1` |
+| Colors, spacing, fonts | `/* ── V1 styles ── */` in the `<style>` block in `<head>` |
+| Favicons, link-preview tags | `<!-- shell-head:start -->` block in `<head>` |

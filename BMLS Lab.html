@@ -9,9 +9,23 @@
   <meta name="ext-resource-dependency" content="uploads/research-demand.svg" data-resource-id="figDemand"/>
   <meta name="ext-resource-dependency" content="uploads/research-mobility.png" data-resource-id="figMobility"/>
   <meta name="ext-resource-dependency" content="uploads/research-coevolution.png" data-resource-id="figCoevolution"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <meta name="ext-resource-dependency" content="uploads/bmls-mark.png" data-resource-id="markBold"/>
+  <meta name="ext-resource-dependency" content="uploads/bmls-mark-fine.png" data-resource-id="markFine"/>
+  <!-- shell-head:start  (build_index.py also copies this block into index.html's loader page) -->
+  <meta name="description" content="The Behavioral Machine Learning &amp; Systems (BMLS) Lab at the University of Houston develops machine learning frameworks to model human and organizational decision-making within complex transportation and urban systems."/>
+  <meta name="theme-color" content="#FFFFFF"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="uploads/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="uploads/icon-192.png"/>
+  <link rel="apple-touch-icon" href="uploads/apple-touch-icon.png"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Behavioral Machine Learning &amp; Systems Lab · University of Houston"/>
+  <meta property="og:description" content="The Behavioral Machine Learning &amp; Systems (BMLS) Lab at the University of Houston develops machine learning frameworks to model human and organizational decision-making within complex transportation and urban systems."/>
+  <meta property="og:url" content="https://ekinugurel.github.io/bmls-lab/"/>
+  <meta property="og:image" content="https://ekinugurel.github.io/bmls-lab/uploads/bmls-fork-v2.png"/>
+  <meta name="twitter:card" content="summary"/>
+  <link rel="preload" href="fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href="fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin/>
+  <!-- shell-head:end -->
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
@@ -56,25 +70,167 @@
     .tweak-btn.active { border-color: #C8102E; background: #C8102E; color: #fff; }
     .tweak-name  { font-size: 12px; font-weight: 600; }
     .tweak-desc  { font-size: 10.5px; opacity: 0.72; margin-top: 2px; }
+
+    /* ── Fonts (self-hosted from fonts/, SIL Open Font License) ── */
+    @font-face { font-family:"Source Serif 4"; font-style:normal; font-weight:200 900; font-display:swap;
+      src:url("fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2");
+      unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:"Source Serif 4"; font-style:normal; font-weight:200 900; font-display:swap;
+      src:url("fonts/source-serif-4-latin-ext-opsz-normal.woff2") format("woff2");
+      unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+    @font-face { font-family:"Source Serif 4"; font-style:italic; font-weight:200 900; font-display:swap;
+      src:url("fonts/source-serif-4-latin-wght-italic.woff2") format("woff2");
+      unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:"Source Serif 4"; font-style:italic; font-weight:200 900; font-display:swap;
+      src:url("fonts/source-serif-4-latin-ext-wght-italic.woff2") format("woff2");
+      unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+    @font-face { font-family:"Source Sans 3"; font-style:normal; font-weight:200 900; font-display:swap;
+      src:url("fonts/source-sans-3-latin-wght-normal.woff2") format("woff2");
+      unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:"Source Sans 3"; font-style:normal; font-weight:200 900; font-display:swap;
+      src:url("fonts/source-sans-3-latin-ext-wght-normal.woff2") format("woff2");
+      unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+
+    /* ── V1 styles ── colours come from the lab mark */
+    .v1 {
+      --ink:#1C1B1A; --text:#33302C; --muted:#6B655D; --rule:#E5E1D9;
+      --coral:#E0605A; --coral-ink:#B3443D; --paper:#FFFFFF;
+      --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+      --sans:"Source Sans 3", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background:var(--paper); color:var(--text); min-height:100vh;
+      font-family:var(--serif); font-size:18px; line-height:1.65;
+    }
+    .v1 a { color:inherit; }
+    .v1 strong { font-weight:600; }
+    .v1-wrap { max-width:1120px; margin:0 auto; padding:0 32px; }
+    .v1-muted { color:var(--muted); }
+
+    /* header */
+    .v1-header { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--rule); }
+    .v1-header-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:72px; }
+    .v1-brand { display:flex; align-items:center; gap:12px; }
+    .v1-brand-mark { height:31px; width:auto; display:block; }
+    .v1-brand-text { display:flex; flex-direction:column; line-height:1.2; }
+    .v1-brand-name { font-size:19px; font-weight:600; color:var(--ink); }
+    .v1-brand-sub { font-family:var(--sans); font-size:14px; color:var(--muted); }
+    .v1-nav { display:flex; flex-wrap:wrap; gap:4px 28px; font-family:var(--sans); font-size:16px; }
+    .v1-nav a { color:var(--text); padding:3px 0; border-bottom:1.5px solid transparent; transition:border-color .15s, color .15s; }
+    .v1-nav a:hover { color:var(--ink); border-bottom-color:var(--coral); }
+
+    /* hero */
+    .v1-hero { padding:76px 0 0; }
+    .v1-hero-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,380px); gap:56px; align-items:center; }
+    .v1-kicker { font-family:var(--sans); font-size:16.5px; color:var(--muted); margin-bottom:16px; }
+    .v1-h1 { font-size:clamp(36px,3.6vw,50px); line-height:1.07; font-weight:600; letter-spacing:-0.012em;
+      color:var(--ink); margin-bottom:24px; text-wrap:balance; }
+    .v1-lede { font-size:21px; line-height:1.55; max-width:32em; margin-bottom:32px; }
+    .v1-hero-links { display:flex; align-items:center; gap:28px; flex-wrap:wrap; font-family:var(--sans); font-size:16.5px; }
+    .v1 a.v1-btn { background:var(--ink); color:#fff; padding:10px 20px; border-radius:3px; transition:background .15s; }
+    .v1 a.v1-btn:hover { background:#45413C; }
+    .v1-textlink, .v1-links a, .v1-contact a {
+      text-decoration:underline; text-decoration-color:var(--coral); text-decoration-thickness:1.5px; text-underline-offset:4px; }
+    .v1-textlink { color:var(--ink); }
+    .v1-textlink:hover, .v1-links a:hover, .v1-contact a:hover { color:var(--coral-ink); }
+    .v1-hero-mark { display:block; width:100%; max-width:430px; justify-self:end; }
+    .v1-focus { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px;
+      margin-top:72px; padding-top:24px; border-top:1px solid var(--rule); }
+    .v1-focus dt { font-family:var(--sans); font-size:15px; color:var(--muted); margin-bottom:2px; }
+    .v1-focus dd { font-size:18.5px; line-height:1.4; color:var(--ink); }
+
+    /* sections */
+    .v1-section { padding-top:96px; scroll-margin-top:72px; }
+    .v1-h2 { font-size:34px; line-height:1.15; font-weight:600; letter-spacing:-0.01em; color:var(--ink);
+      padding-top:22px; border-top:1px solid var(--ink); }
+    .v1-intro { font-size:20px; line-height:1.6; max-width:38em; margin-top:16px; }
+    .v1-h3 { font-size:26px; line-height:1.22; font-weight:600; letter-spacing:-0.006em; color:var(--ink); margin-bottom:14px; }
+
+    /* research */
+    .v1-thrust { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px; align-items:start; margin-top:64px; }
+    .v1-thrust.flip .v1-thrust-fig { order:2; }
+    .v1-thrust-text p { margin-bottom:16px; }
+    .v1-related-h { font-family:var(--sans); font-size:15.5px; font-weight:600; color:var(--ink); margin:28px 0 2px; }
+    .v1-related { list-style:none; }
+    .v1-related li { font-size:16px; line-height:1.5; padding:11px 0; border-bottom:1px solid var(--rule); color:var(--ink); }
+    .v1-related a, .v1-news-text a, .v1-pub-title a {
+      text-decoration:underline; text-decoration-color:var(--rule); text-decoration-thickness:1px; text-underline-offset:3px; transition:text-decoration-color .15s; }
+    .v1-related a:hover, .v1-news-text a:hover, .v1-pub-title a:hover { text-decoration-color:var(--coral); }
+
+    /* people */
+    .v1-person { display:grid; grid-template-columns:200px minmax(0,1fr); gap:48px; align-items:start; margin-top:40px; }
+    .v1-person p { margin-bottom:14px; max-width:44em; }
+    .v1-photo { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center top; border-radius:2px; }
+    .v1-person .v1-role { font-family:var(--sans); font-size:15.5px; color:var(--coral-ink); margin-bottom:4px; }
+    .v1-name { font-size:30px; margin-bottom:4px; }
+    .v1-person .v1-affil { font-family:var(--sans); font-size:16px; line-height:1.5; color:var(--muted); margin-bottom:18px; }
+    .v1-person .v1-links { display:flex; flex-wrap:wrap; gap:6px 24px; font-family:var(--sans); font-size:16px; margin-top:18px; }
+    .v1-subhead { font-size:24px; font-weight:600; color:var(--ink); margin-top:64px; padding-top:24px; border-top:1px solid var(--rule); }
+    .v1-subhead + .v1-person { margin-top:24px; }
+
+    /* news */
+    .v1-news { list-style:none; margin-top:20px; }
+    .v1-news li { display:grid; grid-template-columns:104px minmax(0,1fr); gap:28px; padding:14px 0; border-bottom:1px solid var(--rule); }
+    .v1-date { font-family:var(--sans); font-size:15.5px; color:var(--muted); padding-top:2px; font-variant-numeric:tabular-nums; }
+    .v1-news-text { font-size:17px; line-height:1.6; }
+    .v1-news-text a { text-decoration-color:#C4BDB1 !important; text-underline-offset:3px; }
+    .v1-news-text a:hover { text-decoration-color:var(--coral) !important; }
+
+    /* publications */
+    .v1-pubyear { display:grid; grid-template-columns:104px minmax(0,1fr); gap:28px; padding:22px 0 6px; border-bottom:1px solid var(--rule); }
+    .v1-pubyear:first-of-type { margin-top:8px; }
+    .v1-year { font-family:var(--sans); font-size:17px; font-weight:600; color:var(--ink); padding-top:2px; }
+    .v1-pubs { list-style:none; }
+    .v1-pubs li { margin-bottom:18px; }
+    .v1-pub-title { display:block; font-size:18px; line-height:1.4; font-weight:600; color:var(--ink); }
+    .v1-pub-authors { display:block; font-family:var(--sans); font-size:15.5px; line-height:1.5; color:var(--muted); margin-top:3px; }
+    .v1-pub-authors strong { color:var(--text); }
+    .v1-pub-meta { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 16px; font-size:16.5px; margin-top:1px; }
+    .v1-pub-meta a { font-family:var(--sans); font-size:15px; color:var(--coral-ink);
+      text-decoration:underline; text-decoration-color:transparent; text-underline-offset:3px; }
+    .v1-pub-meta a:hover { text-decoration-color:currentColor; }
+
+    /* join */
+    .v1-join { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px; margin-top:28px; }
+    .v1-join .v1-h3 { font-size:22px; margin-bottom:6px; }
+    .v1-contact { margin-top:36px; padding-top:22px; border-top:1px solid var(--rule); }
+    .v1-contact a { color:var(--ink); }
+
+    /* footer */
+    .v1-footer { margin-top:112px; border-top:1px solid var(--rule); padding:26px 0 40px;
+      font-family:var(--sans); font-size:14.5px; color:var(--muted); }
+    .v1-footer-inner { display:flex; justify-content:space-between; align-items:center; gap:12px 24px; flex-wrap:wrap; }
+    .v1-footer-brand { display:flex; align-items:center; gap:12px; }
+    .v1-footer-mark { height:20px; width:auto; display:block; flex-shrink:0; }
+
+    @media (max-width: 900px) {
+      .v1-hero-grid { grid-template-columns:1fr; }
+      .v1-hero-mark { display:none; }
+      .v1-focus { grid-template-columns:1fr; gap:14px; margin-top:48px; }
+      .v1-thrust { grid-template-columns:1fr; gap:28px; }
+      .v1-thrust.flip .v1-thrust-fig { order:0; }
+      .v1-join { grid-template-columns:1fr; gap:20px; }
+    }
+    @media (max-width: 680px) {
+      .v1 { font-size:17px; }
+      .v1-wrap { padding:0 20px; }
+      .v1-header { position:static; }
+      .v1-header-inner { flex-direction:column; align-items:flex-start; gap:10px; padding-top:14px; padding-bottom:12px; min-height:0; }
+      .v1-nav { gap:2px 20px; font-size:15.5px; }
+      .v1-hero { padding-top:44px; }
+      .v1-lede { font-size:19px; }
+      .v1-section { padding-top:72px; }
+      .v1-h2 { font-size:30px; }
+      .v1-h3 { font-size:23px; }
+      .v1-person { grid-template-columns:1fr; gap:20px; }
+      .v1-photo { max-width:180px; }
+      .v1-news li, .v1-pubyear { grid-template-columns:1fr; gap:4px; }
+      .v1-footer { margin-top:80px; }
+    }
   </style>
-  <template id="__bundler_thumbnail" data-bg-color="#FAFAF8">
+  <template id="__bundler_thumbnail" data-bg-color="#FFFFFF">
     <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="80" fill="#FAFAF8"/>
-      <line x1="24" y1="16" x2="16" y2="24" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="24" y1="16" x2="32" y2="24" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="16" y1="24" x2="24" y2="32" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="32" y1="24" x2="24" y2="32" stroke="#C8102E" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="16" y1="24" x2="32" y2="24" stroke="#C8102E" stroke-width="0.8" stroke-linecap="round" opacity="0.3"/>
-      <circle cx="24" cy="16" r="2.2" fill="#C8102E"/>
-      <circle cx="16" cy="24" r="1.7" fill="#C8102E" opacity="0.55"/>
-      <circle cx="32" cy="24" r="1.7" fill="#C8102E" opacity="0.55"/>
-      <circle cx="24" cy="32" r="2.2" fill="#C8102E"/>
-      <rect x="42" y="20" width="64" height="4" rx="2" fill="#1A1712" opacity="0.15"/>
-      <rect x="42" y="28" width="44" height="3" rx="1.5" fill="#1A1712" opacity="0.08"/>
-      <rect x="14" y="44" width="92" height="2" rx="1" fill="#C8102E" opacity="0.18"/>
-      <rect x="14" y="50" width="28" height="16" rx="2" fill="#1A1712" opacity="0.06"/>
-      <rect x="46" y="50" width="28" height="16" rx="2" fill="#1A1712" opacity="0.06"/>
-      <rect x="78" y="50" width="28" height="16" rx="2" fill="#1A1712" opacity="0.06"/>
+      <rect width="120" height="80" fill="#FFFFFF"/>
+      <image x="45" y="30.05" width="30" height="19.9" href="data:image/png;base64,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"/>
     </svg>
   </template>
 </head>
@@ -136,9 +292,9 @@ const RESEARCH = [
     image:"uploads/research-coevolution.png", imageId:"figCoevolution",
     alt:"Diagram of an AI recommender system shaping exposure and influencing choice, with human actions updating the AI, evaluated on utility, diversity, and agency",
     related:[
-      {"title": "Towards welfare-oriented recommendations in activity-travel behavior", "venue": "To appear in Proceedings of the 20th ACM Conference on Recommender Systems (RecSys '26)", "venueUrl": "https://dl.acm.org/doi/proceedings/10.1145/3773078", "year": "2026", "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Xp6PAL0AAAAJ&sortby=pubdate&citation_for_view=Xp6PAL0AAAAJ:hqOjcs7Dif8C"},
+      {"title": "Towards welfare-oriented recommendations in activity-travel behavior", "venue": "Proceedings of the 20th ACM Conference on Recommender Systems (RecSys '26)", "venueUrl": "https://dl.acm.org/doi/proceedings/10.1145/3773078", "year": "2026", "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Xp6PAL0AAAAJ&sortby=pubdate&citation_for_view=Xp6PAL0AAAAJ:hqOjcs7Dif8C"},
       {"title": "AI-Assisted Digital Platforms Reshape Activity-Travel Behavior", "venue": "Preprint", "year": "", "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Xp6PAL0AAAAJ&sortby=pubdate&citation_for_view=Xp6PAL0AAAAJ:Se3iqnhoufwC"},
-      {"title": "GeoRecSim: A Multi-Agent Testbed for Recommender System Design", "venue": "GeoSim '26 (9th ACM SIGSPATIAL International Workshop on GeoSpatial Simulation), Riverside, CA", "year": "2026", "url": ""},
+      {"title": "GeoRecSim: A Multi-Agent Testbed for Recommender System Design", "venue": "GeoSim '26 (9th ACM SIGSPATIAL International Workshop on GeoSpatial Simulation), Riverside, CA", "year": "2026", "url": "https://dl.acm.org/doi/abs/10.1145/3849737.3849837"},
     ],
     tags:["Recommender Systems","Trust in AI","Feedback Loops","Agency"],
   },
@@ -176,6 +332,30 @@ const NEWS = [
 ];
 
 const PUBLICATIONS = [
+  {
+    year:"2026",
+    title:"GeoRecSim: A Multi-Agent Testbed for Recommender System Design",
+    authors:"Nahush Shrivatsa, Ekin Uğurel, Takahiro Yabe",
+    venue:"GeoSim '26: Proceedings of the 9th ACM SIGSPATIAL International Workshop on GeoSpatial Simulation",
+    links:{ pdf:"https://dl.acm.org/doi/abs/10.1145/3849737.3849837" },
+    thrust:"03",
+  },
+  {
+    year:"2026",
+    title:"Causal-Flow SCM: Calibrated Forecasting and Counterfactual Prioritization for Airport Delay Propagation",
+    authors:"Yuteng Zhang, Ekin Uğurel",
+    venue:"ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (SIGSPATIAL '26)",
+    links:{},
+    thrust:"02",
+  },
+  {
+    year:"2026",
+    title:"Towards welfare-oriented recommendations in activity-travel behavior",
+    authors:"Ekin Uğurel, Takahiro Yabe",
+    venue:"Proceedings of the 20th ACM Conference on Recommender Systems (RecSys '26)",
+    links:{ pdf:"https://dl.acm.org/doi/10.1145/3773078.3831788" },
+    thrust:"03",
+  },
   {
     year:"2026",
     title:"On predicting sociodemographics from mobility signals",
@@ -257,6 +437,22 @@ const PUBLICATIONS = [
     thrust:"02",
   },
   {
+    year:"2024",
+    title:"Comparing Fairness of Generative Mobility Models",
+    authors:"Daniel Wang, Jack McFarland, Afra Mashhadi, Ekin Uğurel",
+    venue:"Preprint",
+    links:{ pdf:"https://arxiv.org/abs/2411.04453" },
+    thrust:"02",
+  },
+  {
+    year:"2023",
+    title:"Gaussian Process Learning for Location-Based Service Data",
+    authors:"Ekin Uğurel, Shuai Huang, Cynthia Chen",
+    venue:"2023 Asia Pacific Signal and Information Processing Association Annual Summit and Conference (APSIPA ASC)",
+    links:{},
+    thrust:"02",
+  },
+  {
     year:"2023",
     title:"Incident detection from novel data sources: Leveraging satellite imagery alongside GPS traces",
     authors:"Ekin Uğurel, Steffen Coenen, Minda Zhou Chen, Cynthia Chen",
@@ -333,279 +529,228 @@ const ResearchFigure = ({ src, alt, width="100%" }) => {
 };
 
 /* ══════════════════════════════════════════════
-   VARIANT 1 — ACADEMIC MINIMAL
-   Warm white · DM Serif Display + DM Sans · UH red accents
+   VARIANT 1 — ACADEMIC (the one the site shows)
+   White page · Source Serif 4 + Source Sans 3 · ink and coral from the lab mark
+   All styling lives in the "V1 styles" block of the <style> tag in <head>.
 ══════════════════════════════════════════════ */
-const V1 = () => {
-  const R="#C8102E", INK="#1A1712", MUT="#7A6F63", BG="#FAFAF8", TAN="#F3F0EB", LINE="#E2DDD4";
-  const serif = { fontFamily:"'DM Serif Display', serif" };
-  const sans  = { fontFamily:"'DM Sans', sans-serif" };
 
-  const NavLink = ({ label, href="#" }) => {
-    const [hov,setHov] = useState(false);
-    return <a href={href} style={{ ...sans, fontSize:13, color:hov?R:MUT, transition:"color .15s" }} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>{label}</a>;
-  };
-  const Btn = ({ children, primary, href="#", style={} }) => {
-    const [hov,setHov]=useState(false);
-    return <a href={href} style={{ ...sans, display:"inline-block", padding:"11px 26px", borderRadius:4, fontSize:13.5, fontWeight:500, transition:"all .15s",
-      background: primary?(hov?"#a80e26":R):"transparent",
-      color: primary?"#fff":(hov?R:INK),
-      border: primary?"none":`1.5px solid ${hov?R:LINE}`,
-      ...style
-    }} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>{children}</a>;
-  };
+/* The lab mark. `fine` = thin-stroke version for large sizes (hero);
+   default = heavier version that stays legible small (header, footer). */
+const Mark = ({ fine=false, className }) => (
+  <img className={className} alt="" aria-hidden="true"
+    src={fine ? (window.__resources?.markFine || "uploads/bmls-mark-fine.png")
+              : (window.__resources?.markBold || "uploads/bmls-mark.png")}/>
+);
+
+/* Bold the PI's name inside an author list. */
+const PI_NAME = "Ekin Uğurel";
+const withPI = (authors) => authors.split(PI_NAME).flatMap((part,i)=> i===0 ? [part] : [<strong key={i}>{PI_NAME}</strong>, part]);
+
+const Section = ({ id, title, intro, children }) => (
+  <section id={id} className="v1-section">
+    <div className="v1-wrap">
+      <h2 className="v1-h2">{title}</h2>
+      {intro && <p className="v1-intro">{intro}</p>}
+      {children}
+    </div>
+  </section>
+);
+
+const V1 = () => {
+  const NAV = [["Research","#research"],["People","#people"],["News","#news"],["Publications","#publications"],["Join the lab","#join"]];
+  const FOCUS = [
+    ["Core methodology","Machine learning + behavioral science"],
+    ["Application domain","Transportation and urban systems"],
+    ["Design principles","Uncertainty quantification, interpretability, privacy"],
+  ];
+  const years = [...new Set(PUBLICATIONS.map(p=>p.year))];
 
   return (
-    <div style={{ ...sans, background:BG, color:INK, minHeight:"100vh" }}>
-      {/* NAV */}
-      <nav style={{ position:"sticky", top:0, background:BG+"F5", backdropFilter:"blur(10px)", borderBottom:`1px solid ${LINE}`, zIndex:100 }}>
-        <div style={{ maxWidth:1100, margin:"0 auto", padding:"0 48px", height:64, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-            <Logo color={R} size={26}/>
+    <div className="v1">
+      {/* HEADER */}
+      <header className="v1-header">
+        <div className="v1-wrap v1-header-inner">
+          <a href="#top" className="v1-brand">
+            <Mark className="v1-brand-mark"/>
+            <span className="v1-brand-text">
+              <span className="v1-brand-name">BMLS Lab</span>
+              <span className="v1-brand-sub">University of Houston</span>
+            </span>
+          </a>
+          <nav className="v1-nav" aria-label="Sections">
+            {NAV.map(([l,h])=><a key={h} href={h}>{l}</a>)}
+          </nav>
+        </div>
+      </header>
+
+      <main id="top">
+        {/* HERO */}
+        <section className="v1-hero">
+          <div className="v1-wrap v1-hero-grid">
             <div>
-              <div style={{ ...serif, fontSize:15.5, color:INK }}>BMLS Lab</div>
-              <div style={{ fontSize:9.5, color:MUT, letterSpacing:"0.07em", textTransform:"uppercase" }}>University of Houston</div>
+              <p className="v1-kicker">Department of Industrial &amp; Systems Engineering, University of Houston</p>
+              <h1 className="v1-h1">Behavioral Machine Learning<br/>&amp;&nbsp;Systems&nbsp;Lab</h1>
+              <p className="v1-lede">
+                We develop machine learning frameworks to model human and organizational decision-making within complex transportation and urban systems.
+              </p>
+              <p className="v1-hero-links">
+                <a className="v1-btn" href="#research">Our research</a>
+                <a className="v1-textlink" href="#join">Join the lab</a>
+              </p>
             </div>
+            <Mark fine className="v1-hero-mark"/>
           </div>
-          <div style={{ display:"flex", gap:30 }}>
-            {[["Research","#research"],["People","#people"],["News","#news"],["Publications","#publications"],["Join Us","#join"]].map(([l,h])=><NavLink key={l} label={l} href={h}/>)}
+          <div className="v1-wrap">
+            <dl className="v1-focus">
+              {FOCUS.map(([k,v])=>(
+                <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+              ))}
+            </dl>
           </div>
-        </div>
-      </nav>
+        </section>
 
-      {/* HERO */}
-      <section style={{ maxWidth:1100, margin:"0 auto", padding:"96px 48px 72px" }}>
-        <div className="fu" style={{ display:"flex", alignItems:"center", gap:10, marginBottom:22 }}>
-          <div style={{ width:28, height:2, background:R, borderRadius:1 }}/>
-          <span style={{ fontSize:11, letterSpacing:"0.13em", textTransform:"uppercase", color:R, fontWeight:500 }}>University of Houston · Industrial &amp; Systems Engineering</span>
-        </div>
-        <h1 className="fu1" style={{ ...serif, fontSize:"clamp(42px,5.5vw,72px)", lineHeight:1.08, color:INK, maxWidth:740, marginBottom:26 }}>
-          Behavioral Machine Learning<br/>&amp; Systems Lab
-        </h1>
-        <p className="fu2" style={{ fontSize:17, lineHeight:1.75, color:MUT, maxWidth:580, marginBottom:40 }}>
-          We develop machine learning frameworks to model human and organizational decision-making within complex transportation and urban systems.
-        </p>
-        <div className="fu3" style={{ display:"flex", gap:14 }}>
-          <Btn primary href="#research">Our Research</Btn>
-          <Btn href="#join">Join the Lab</Btn>
-        </div>
-        <div className="fu4" style={{ display:"flex", gap:48, marginTop:60, paddingTop:40, borderTop:`1px solid ${LINE}` }}>
-          {[
-            ["Machine Learning + Behavioral Science","Core Methodology"],
-            ["Transportation & Urban Systems","Application Domain"],
-            ["Uncertainty Quantification; Interpretability; Privacy", "Design Principles"],
-          ].map(([v,l])=>(
-            <div key={l}>
-              <div style={{ fontSize:14, fontWeight:600, color:INK, marginBottom:4 }}>{v}</div>
-              <div style={{ fontSize:10.5, color:MUT, textTransform:"uppercase", letterSpacing:"0.08em" }}>{l}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* RESEARCH */}
-      <section id="research" style={{ background:TAN, padding:"88px 48px" }}>
-        <style>{`
-          .rd-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px; align-items:start; }
-          .rd-row.flip .rd-fig { order:2; }
-          @media (max-width: 860px) {
-            .rd-row { grid-template-columns:1fr; gap:28px; }
-            .rd-row.flip .rd-fig { order:0; }
-          }
-        `}</style>
-        <div style={{ maxWidth:1100, margin:"0 auto" }}>
-          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:24 }}>
-            <h2 style={{ ...serif, fontSize:36, color:INK }}>Research</h2>
-            <div style={{ flex:1, height:1, background:LINE }}/>
-          </div>
-          <p style={{ fontSize:17, lineHeight:1.75, color:"#4A4238", maxWidth:780, marginBottom:72 }}>
-            We study how people make everyday travel decisions, and how those decisions are changing as data and AI become part of daily life. Our work follows three connected directions.
-          </p>
+        {/* RESEARCH */}
+        <Section id="research" title="Research"
+          intro="We study how people make everyday travel decisions, and how those decisions are changing as data and AI become part of daily life. Our work follows three connected directions.">
           {RESEARCH.map((r,i)=>{
             const src = window.__resources?.[r.imageId] || r.image;
             return (
-              <article key={r.id} className={`rd-row${i%2===1?" flip":""}`} style={{ marginBottom: i===RESEARCH.length-1?0:96 }}>
-                <div className="rd-fig">
+              <article key={r.id} className={`v1-thrust${i%2===1?" flip":""}`}>
+                <div className="v1-thrust-fig">
                   <ResearchFigure src={src} alt={r.alt} width={r.figWidth||"100%"}/>
-                  <h4 style={{ fontSize:16, fontWeight:600, color:INK, marginTop:32, marginBottom:4 }}>Related work</h4>
-                  <ul style={{ listStyle:"none" }}>
+                  <h4 className="v1-related-h">Related work</h4>
+                  <ul className="v1-related">
                     {r.related.map(w=>(
-                      <li key={w.title} style={{ fontSize:16, lineHeight:1.6, padding:"12px 0", borderBottom:`1px solid ${LINE}` }}>
-                        {w.url
-                          ? <a href={w.url} target="_blank" rel="noreferrer" style={{ color:INK, textDecoration:"underline", textDecorationColor:LINE, textUnderlineOffset:3 }}>{w.title}</a>
-                          : <span style={{ color:INK }}>{w.title}</span>}
-                        {(w.venue||w.year) && <span style={{ color:MUT }}>{". "}{w.venueUrl
-                          ? <a href={w.venueUrl} target="_blank" rel="noreferrer" style={{ color:MUT, textDecoration:"underline", textDecorationColor:LINE, textUnderlineOffset:3 }}>{w.venue}</a>
+                      <li key={w.title}>
+                        {w.url ? <a href={w.url} target="_blank" rel="noreferrer">{w.title}</a> : <span>{w.title}</span>}
+                        {(w.venue||w.year) && <span className="v1-muted">{". "}{w.venueUrl
+                          ? <a href={w.venueUrl} target="_blank" rel="noreferrer">{w.venue}</a>
                           : w.venue}{w.venue&&w.year?", ":""}{w.year}</span>}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div>
-                  <h3 style={{ ...serif, fontSize:30, color:INK, lineHeight:1.2, marginBottom:20 }}>{r.title}</h3>
-                  {r.body.map((para,k)=>(
-                    <p key={k} style={{ fontSize:16, lineHeight:1.8, color:"#4A4238", marginBottom:18 }}>{para}</p>
-                  ))}
+                <div className="v1-thrust-text">
+                  <h3 className="v1-h3">{r.title}</h3>
+                  {r.body.map((para,k)=><p key={k}>{para}</p>)}
                 </div>
               </article>
             );
           })}
-        </div>
-      </section>
+        </Section>
 
-      {/* PI BIO */}
-      <section id="people" style={{ padding:"80px 48px" }}>
-        <div style={{ maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"220px 1fr", gap:64, alignItems:"start" }}>
-          <img src={window.__resources?.profilePhoto || "uploads/IMG_3620.jpeg"} alt="Ekin Uğurel" style={{ width:"100%", aspectRatio:"3/4", objectFit:"cover", objectPosition:"center top", borderRadius:4, border:`1px solid ${LINE}`, display:"block" }}/>
-          <div>
-            <div style={{ fontSize:11, letterSpacing:"0.12em", textTransform:"uppercase", color:R, marginBottom:14, fontWeight:500 }}>Principal Investigator</div>
-            <h2 style={{ ...serif, fontSize:42, color:INK, marginBottom:6 }}>Ekin Uğurel</h2>
-            <div style={{ fontSize:14.5, color:MUT, marginBottom:24, lineHeight:1.6 }}>
-              Assistant Professor, Industrial and Systems Engineering<br/>University of Houston
-            </div>
-            <p style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:18 }}>
-              Ekin Uğurel is an Assistant Professor in Industrial and Systems Engineering at the University of Houston. His research lies at the intersection of behavioral machine learning, human mobility, and transportation systems. One of his recent larger-scale projects investigates how people interact with, rely on, and are shaped by AI systems that mediate travel and activity decisions. His work draws methodologically on analysis of large-scale passively collected mobility data (i.e., GPS traces), stated-choice experiment designs, and agent-based simulation using digital twins.
-            </p>
-            <p style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:18 }}>
-              He received his Ph.D. and M.S. in Civil Engineering from the University of Washington in 2025 and 2023, respectively. He earned his B.S. in Civil Engineering with Honors from the University of Texas at Austin in 2021. Prior to joining UH, he was a Postdoctoral Associate at NYU's Center for Urban Science and Progress (CUSP), and held a visiting position at the Technical University of Denmark's ML for Smart Mobility group.
-            </p>
-            <p style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:28 }}>
-              Dr. Uğurel is the recipient of the UW College of Engineering Dean’s Fellowship (2023) and was honored as the PacTrans UTC Michael Kyte Region 10 Outstanding Student of the Year in 2024. In his free time, he enjoys playing pick-up soccer, rock climbing, and partaking in Houston’s vibrant running community.
-            </p>
-            <div style={{ display:"flex", gap:22, flexWrap:"wrap" }}>
-              {[
+        {/* PEOPLE — PI BIO */}
+        <Section id="people" title="People">
+          <div className="v1-person">
+            <img className="v1-photo" src={window.__resources?.profilePhoto || "uploads/IMG_3620.jpeg"} alt="Ekin Uğurel"/>
+            <div>
+              <p className="v1-role">Principal investigator</p>
+              <h3 className="v1-h3 v1-name">Ekin Uğurel</h3>
+              <p className="v1-affil">Assistant Professor, Industrial and Systems Engineering<br/>University of Houston</p>
+              <p>
+                Ekin Uğurel is an Assistant Professor in Industrial and Systems Engineering at the University of Houston. His research lies at the intersection of behavioral machine learning, human mobility, and transportation systems. One of his recent larger-scale projects investigates how people interact with, rely on, and are shaped by AI systems that mediate travel and activity decisions. His work draws methodologically on analysis of large-scale passively collected mobility data (i.e., GPS traces), stated-choice experiment designs, and agent-based simulation using digital twins.
+              </p>
+              <p>
+                He received his Ph.D. and M.S. in Civil Engineering from the University of Washington in 2025 and 2023, respectively. He earned his B.S. in Civil Engineering with Honors from the University of Texas at Austin in 2021. Prior to joining UH, he was a Postdoctoral Associate at NYU's Center for Urban Science and Progress (CUSP), and held a visiting position at the Technical University of Denmark's ML for Smart Mobility group.
+              </p>
+              <p>
+                Dr. Uğurel is the recipient of the UW College of Engineering Dean’s Fellowship (2023) and was honored as the PacTrans UTC Michael Kyte Region 10 Outstanding Student of the Year in 2024. In his free time, he enjoys playing pick-up soccer, rock climbing, and partaking in Houston’s vibrant running community.
+              </p>
+              <p className="v1-links">
+                {[
                 ["CV","files/CV_EU.pdf",false],
                 ["Google Scholar","https://scholar.google.com/citations?user=Xp6PAL0AAAAJ&hl=en&oi=ao",false],
                 ["GitHub","https://github.com/ekinugurel",false],
                 ["Email","mailto:eugurel@Central.UH.EDU",false],
-              ].map(([l,href,isReq])=>{
-                const [hov,setHov]=useState(false);
-                return (
-                  <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer"
-                    style={{ fontSize:13, color:hov?R:MUT, borderBottom:`1px solid ${hov?R:LINE}`, paddingBottom:2, transition:"all .15s", display:"flex", alignItems:"center", gap:4 }}
-                    onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
-                    {l}{isReq&&<span style={{ fontSize:10, opacity:0.6 }}>(on request)</span>}
+              ].map(([l,href,isReq])=>(
+                  <a key={l} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noreferrer">
+                    {l}{isReq&&<span className="v1-muted"> (on request)</span>}
                   </a>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* PHD STUDENTS */}
-        <div style={{ maxWidth:1100, margin:"64px auto 0", paddingTop:56, borderTop:`1px solid ${LINE}` }}>
-          <div style={{ fontSize:11, letterSpacing:"0.12em", textTransform:"uppercase", color:R, marginBottom:32, fontWeight:500 }}>PhD Students</div>
-          {STUDENTS.map(st=>(
-            <div key={st.name} style={{ display:"grid", gridTemplateColumns:"220px 1fr", gap:64, alignItems:"start", marginBottom:48 }}>
-              <img src={window.__resources?.[st.photoId] || st.photo} alt={st.name} style={{ width:"100%", aspectRatio:"3/4", objectFit:"cover", objectPosition:"center top", borderRadius:4, border:`1px solid ${LINE}`, display:"block" }}/>
-              <div>
-                <h3 style={{ ...serif, fontSize:30, color:INK, marginBottom:6 }}>{st.name}</h3>
-                <div style={{ fontSize:14.5, color:MUT, marginBottom:20, lineHeight:1.6 }}>{st.role}</div>
-                {st.bio.map((para,i)=>(
-                  <p key={i} style={{ fontSize:15, lineHeight:1.78, color:"#4A4238", marginBottom:16 }}>{para}</p>
                 ))}
+              </p>
+            </div>
+          </div>
+
+          {/* PHD STUDENTS */}
+          <h3 className="v1-subhead">PhD students</h3>
+          {STUDENTS.map(st=>(
+            <div key={st.name} className="v1-person">
+              <img className="v1-photo" src={window.__resources?.[st.photoId] || st.photo} alt={st.name}/>
+              <div>
+                <h3 className="v1-h3 v1-name">{st.name}</h3>
+                <p className="v1-affil">{st.role}</p>
+                {st.bio.map((para,i)=><p key={i}>{para}</p>)}
               </div>
             </div>
           ))}
-        </div>
-      </section>
+        </Section>
 
-      {/* NEWS */}
-      <section id="news" style={{ background:TAN, padding:"80px 48px" }}>
-        <div style={{ maxWidth:1100, margin:"0 auto" }}>
-          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:36 }}>
-            <h2 style={{ ...serif, fontSize:36, color:INK }}>News</h2>
-            <div style={{ flex:1, height:1, background:LINE }}/>
-          </div>
-          {NEWS.slice(0,10).map((n,i)=>(
-            <div key={i} style={{ display:"grid", gridTemplateColumns:"100px 1fr", gap:32, padding:"18px 0", borderBottom:`1px solid ${LINE}` }}>
-              <div style={{ fontSize:12, fontWeight:600, color:R, paddingTop:2 }}>{n.date}</div>
-              <div style={{ fontSize:14, lineHeight:1.68, color:"#4A4238" }}>
-                {n.link
-                  ? <a href={n.link} target="_blank" rel="noreferrer" style={{ color:"#4A4238", borderBottom:`1px solid ${LINE}`, paddingBottom:1 }}>{n.text}</a>
-                  : n.text}
-              </div>
+        {/* NEWS */}
+        <Section id="news" title="News">
+          <ul className="v1-news">
+            {NEWS.slice(0,10).map((n,i)=>(
+              <li key={i}>
+                <span className="v1-date">{n.date}</span>
+                <span className="v1-news-text">
+                  {n.link ? <a href={n.link} target="_blank" rel="noreferrer">{n.text}</a> : n.text}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        {/* PUBLICATIONS (grouped by year) */}
+        <Section id="publications" title="Publications">
+          {years.map(y=>(
+            <div key={y} className="v1-pubyear">
+              <h3 className="v1-year">{y}</h3>
+              <ol className="v1-pubs">
+                {PUBLICATIONS.filter(p=>p.year===y).map(p=>(
+                  <li key={p.title}>
+                    <span className="v1-pub-title">
+                      {p.links.pdf ? <a href={p.links.pdf} target="_blank" rel="noreferrer">{p.title}</a> : p.title}
+                    </span>
+                    <span className="v1-pub-authors">{withPI(p.authors)}</span>
+                    <span className="v1-pub-meta">
+                      <em>{p.venue}</em>
+                      {p.links.pdf && <a href={p.links.pdf} target="_blank" rel="noreferrer">PDF</a>}
+                      {p.links.code && <a href={p.links.code} target="_blank" rel="noreferrer">Code</a>}
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
           ))}
-        </div>
-      </section>
+        </Section>
 
-      {/* PUBLICATIONS */}
-      <section id="publications" style={{ padding:"80px 48px" }}>
-        <div style={{ maxWidth:1100, margin:"0 auto" }}>
-          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
-            <h2 style={{ ...serif, fontSize:36, color:INK }}>Publications</h2>
-            <div style={{ flex:1, height:1, background:LINE }}/>
-          </div>
-          {PUBLICATIONS.map((p,i)=>{
-            const [hov,setHov]=useState(false);
-            return (
-              <div key={i} style={{ display:"grid", gridTemplateColumns:"56px 1fr", gap:24, padding:"22px 0",
-                borderBottom:`1px solid ${LINE}`, transition:"opacity .15s", opacity:hov?1:0.9 }}
-                onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
-                <div style={{ fontSize:11, fontWeight:600, color:MUT, paddingTop:3, letterSpacing:"0.02em" }}>{p.year}</div>
-                <div>
-                  <div style={{ fontSize:15, fontWeight:600, color:INK, lineHeight:1.35, marginBottom:5 }}>
-                    {p.links.pdf
-                      ? <a href={p.links.pdf} target="_blank" rel="noreferrer"
-                          style={{ color:INK, borderBottom:`1px solid ${hov?R:LINE}`, paddingBottom:1, transition:"border-color .15s" }}>{p.title}</a>
-                      : p.title}
-                  </div>
-                  <div style={{ fontSize:12.5, color:MUT, marginBottom:8, lineHeight:1.5 }}>{p.authors}</div>
-                  <div style={{ display:"flex", alignItems:"center", gap:12, flexWrap:"wrap" }}>
-                    <span style={{ fontSize:12, fontStyle:"italic", color:"#7A6F63" }}>{p.venue}</span>
-                    {p.links.pdf && <a href={p.links.pdf} target="_blank" rel="noreferrer"
-                      style={{ fontSize:11, fontWeight:700, color:R, letterSpacing:"0.05em" }}>PDF ↗</a>}
-                    {p.links.code && <a href={p.links.code} target="_blank" rel="noreferrer"
-                      style={{ fontSize:11, fontWeight:700, color:MUT, letterSpacing:"0.05em" }}>Code ↗</a>}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* JOIN US */}
-      <section id="join" style={{ background:TAN, padding:"80px 48px" }}>
-        <div style={{ maxWidth:1100, margin:"0 auto" }}>
-          <div style={{ display:"flex", alignItems:"baseline", gap:16, marginBottom:44 }}>
-            <h2 style={{ ...serif, fontSize:36, color:INK }}>Join the Lab</h2>
-            <div style={{ flex:1, height:1, background:LINE }}/>
-          </div>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:22, marginBottom:28 }}>
+        {/* JOIN US */}
+        <Section id="join" title="Join the lab">
+          <div className="v1-join">
             {[
-              { role:"PhD Students", detail:"Multiple fully-funded positions for Fall 2026. Ideal candidates have strong foundations in machine learning, statistics, probability, or transportation/systems engineering. Experience with Python and scientific computing is expected.", highlight:true },
-              { role:"Visiting Scholars & Postdocs", detail:"Prospective visiting scholars and postdoctoral researchers with aligned interests are welcome to reach out. Positions are subject to funding availability.", highlight:false },
-            ].map(({role,detail,highlight})=>(
-              <div key={role} style={{ background:"#fff", padding:"28px 26px", borderRadius:5,
-                borderTop:`3px solid ${highlight?R:LINE}`,
-                boxShadow:"0 2px 8px rgba(0,0,0,0.03)" }}>
-                <h3 style={{ ...serif, fontSize:20, color:INK, marginBottom:10 }}>{role}</h3>
-                <p style={{ fontSize:14, lineHeight:1.72, color:MUT }}>{detail}</p>
+              { role:"PhD students", detail:"Multiple fully-funded positions for Fall 2027. Ideal candidates have strong foundations in machine learning, statistics, probability, or transportation/systems engineering. Experience with Python and scientific computing is expected.", highlight:true },
+              { role:"Visiting scholars and postdocs", detail:"Prospective visiting scholars and postdoctoral researchers with aligned interests are welcome to reach out. Positions are subject to funding availability.", highlight:false },
+            ].map(({role,detail})=>(
+              <div key={role}>
+                <h3 className="v1-h3">{role}</h3>
+                <p>{detail}</p>
               </div>
             ))}
           </div>
-          <div style={{ background:"#fff", padding:"26px 32px", borderRadius:5,
-            borderLeft:`4px solid ${R}`, boxShadow:"0 2px 8px rgba(0,0,0,0.03)",
-            display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-            <div>
-              <div style={{ fontSize:14, fontWeight:600, color:INK, marginBottom:4 }}>Interested? Get in touch.</div>
-              <div style={{ fontSize:13.5, color:MUT }}>Send your CV, a brief statement of research interests, and any relevant work.</div>
-            </div>
-            <a href="mailto:eugurel@Central.UH.EDU" style={{ flexShrink:0, marginLeft:36, display:"inline-block", padding:"11px 26px", borderRadius:4, fontSize:13.5, fontWeight:500, background:R, color:"#fff", whiteSpace:"nowrap" }}>eugurel@Central.UH.EDU →</a>
-          </div>
-        </div>
-      </section>
+          <p className="v1-contact">
+            Interested? Send your CV, a brief statement of research interests, and any relevant work to{" "}
+            <a href="mailto:eugurel@Central.UH.EDU">eugurel@Central.UH.EDU</a>.
+          </p>
+        </Section>
+      </main>
 
       {/* FOOTER */}
-      <footer style={{ borderTop:`1px solid ${LINE}`, padding:"28px 48px" }}>
-        <div style={{ maxWidth:1100, margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-            <Logo color={R} size={17}/>
-            <span style={{ fontSize:12, color:MUT }}>BMLS Lab · University of Houston</span>
-          </div>
-          <span style={{ fontSize:12, color:"#C8C0B4" }}>© 2026</span>
+      <footer className="v1-footer">
+        <div className="v1-wrap v1-footer-inner">
+          <span className="v1-footer-brand">
+            <Mark className="v1-footer-mark"/>
+            <span>Behavioral Machine Learning &amp; Systems Lab · Department of Industrial &amp; Systems Engineering · University of Houston</span>
+          </span>
+          <span>© 2026</span>
         </div>
       </footer>
     </div>
@@ -756,7 +901,7 @@ const V2 = () => {
             background:`${R}0A` }}>
             <div>
               <div style={{ fontFamily:"monospace", fontSize:11, color:R, letterSpacing:"0.1em", marginBottom:10 }}>// OPEN POSITIONS</div>
-              <h3 style={{ fontSize:24, fontWeight:600, marginBottom:8 }}>PhD Students — Fall 2026</h3>
+              <h3 style={{ fontSize:24, fontWeight:600, marginBottom:8 }}>PhD Students — Fall 2027</h3>
               <p style={{ fontSize:14, color:MUT, maxWidth:460 }}>Fully-funded positions. ML, statistics, or engineering backgrounds welcome.</p>
             </div>
             {(()=>{
@@ -967,7 +1112,7 @@ const V3 = () => {
             display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div>
               <div style={{ ...mono, fontSize:9.5, color:R, letterSpacing:"0.1em", marginBottom:8 }}>OPEN POSITIONS</div>
-              <h3 style={{ fontSize:20, fontWeight:700, marginBottom:5 }}>PhD Students — Fall 2026</h3>
+              <h3 style={{ fontSize:20, fontWeight:700, marginBottom:5 }}>PhD Students — Fall 2027</h3>
               <p style={{ fontSize:13.5, color:MUT }}>Fully-funded positions. ML, statistics, civil or systems engineering backgrounds welcome.</p>
             </div>
             {(()=>{
